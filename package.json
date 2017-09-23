@@ -1,0 +1,16 @@
+{
+  "name": "amiojabo",
+  "version": "1.0.0",
+  "description": "Web App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/SanyAlamShovon/amiOjabo.git"
+  },
+  "author": "Shovon&Proshen",
+  "license": "ISC"
+}
