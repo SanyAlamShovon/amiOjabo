@@ -25,6 +25,7 @@
     "hapi-async-routes": "^1.1.0",
     "hapi-auth-jwt": "^4.0.0",
     "hapi-router": "^3.5.0",
+    "hapi-swagger": "^7.8.1",
     "inert": "^4.2.1",
     "joi": "^11.0.3",
     "moment": "^2.18.1",
