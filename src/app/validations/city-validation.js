@@ -6,7 +6,13 @@ const all = {
       cityName: Joi.string().required()
     }
   };
-
+const create = {
+  payload : {
+    cityId: Joi.number().required(),
+    cityName: Joi.string().required()   
+  }
+}
  module.exports = {
-    all
+    all,
+    create
   };
