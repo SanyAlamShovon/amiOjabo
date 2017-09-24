@@ -9,8 +9,11 @@ const citySchema = new Schema({
     },
     cityName : {
         type : String,
-        required : true
+        required : true,
+        trim: true
     }
+},{
+    timestamps: true
 });
 
 module.exports = Mongoose.model('Cites',citySchema,'Cites');

@@ -30,6 +30,26 @@ const cities = [
         handler: cityController.byId,
         validate : cityValidation.byId
       }
+    },
+    {
+      method: 'PUT',
+      path: '/api/v1/cities/{id}',
+      config: {
+        tags: ['api'],
+        description: 'Update Single City Information',
+        handler: cityController.update,
+        validate : cityValidation.update
+      }
+    },
+    {
+      method: 'DELETE',
+      path: '/api/v1/cities/{id}',
+      config: {
+        tags: ['api'],
+        description: 'Delete Single City Information',
+        handler: cityController.destroy,
+        validate : cityValidation.destroy
+      }
     }
   ];
   

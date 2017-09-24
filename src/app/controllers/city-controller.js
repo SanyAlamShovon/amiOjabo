@@ -37,8 +37,34 @@ const byId = {
     }
   }
 }
+
+const update = {
+  async : async function(request,reply){
+    try{
+     const data =  await cityModel.update({cityId : request.params.id},request.payload);
+     if(data === null || data === undefined)reply({}).code(404);
+     else reply({}).code(204)
+    }catch(err){
+      reply(Boom.badRequest(err.toString())),code(400);
+    }
+  }
+}
+
+const destroy = {
+  async : async function(request,reply){
+    try{
+      const data = await cityModel.remove({cityId : request.params.id});
+      if(data == null || data === undefined)reply({}).code(404);
+      else reply({}).code(200);
+    }catch(err){
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 module.exports = {
     all,
     create,
-    byId
+    byId,
+    update,
+    destroy
 }
