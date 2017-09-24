@@ -6,7 +6,6 @@ const all = {
     try {
       console.info('test controoler');
       const data = await cityModel.find({});
-      console.log("Data",data);
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -26,7 +25,20 @@ const create = {
     }
   }
 };
+
+const byId = {
+  async: async function (request, reply) {
+    try {
+      const data =  await cityModel.find({cityId : request.params.id});
+      if(data === null || data === undefined) reply({}).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 module.exports = {
     all,
-    create
+    create,
+    byId
 }

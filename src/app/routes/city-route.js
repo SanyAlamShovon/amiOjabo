@@ -20,6 +20,16 @@ const cities = [
         handler : cityController.create,
         validate : cityValidation.create
       }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/cities/{id}',
+      config: {
+        tags: ['api'],
+        description: 'Get Single City Information',
+        handler: cityController.byId,
+        validate : cityValidation.byId
+      }
     }
   ];
   

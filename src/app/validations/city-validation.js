@@ -12,7 +12,14 @@ const create = {
     cityName: Joi.string().required()   
   }
 }
+
+const byId = {
+  params : {
+    id : Joi.number().required()
+  }
+}
  module.exports = {
     all,
-    create
+    create,
+    byId
   };
