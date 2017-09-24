@@ -2,13 +2,13 @@ const Joi = require('joi');
 
 const all = {
     params: {
-      cityId: Joi.number().required(),
+      _id: Joi.number().required(),
       cityName: Joi.string().required()
     }
   };
 const create = {
   payload : {
-    cityId: Joi.number().required(),
+    _id: Joi.number().required(),
     cityName: Joi.string().required()   
   }
 }
@@ -24,7 +24,7 @@ const update = {
     id : Joi.number().required()
   },
   payload : {
-    cityId : Joi.number().required(),
+    _id : Joi.number().required(),
     cityName : Joi.string().required()
   }
 } 
