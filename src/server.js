@@ -23,6 +23,7 @@ server.register(Plugin, function (err) {
         console.log(err);
     }
 });
+
 server.register([
     Inert,
     Vision,
