@@ -5,7 +5,7 @@ const all = {
   async: async function (request, reply) {
     try {
       console.info('test controoler');
-      const data = await cityModel.find({});
+      const data = await cityModel.find({status : true});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -29,7 +29,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await cityModel.find({_id : request.params.id});
+      const data =  await cityModel.find({_id : request.params.id,status : true});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -61,10 +61,29 @@ const destroy = {
     }
   }
 }
+
+const activeInactive = {
+  async : async function(request,reply){
+    try{
+      const data = await cityModel.findByIdAndUpdate({
+        _id : request.params.id
+      },{
+        $set : {
+          status : request.params.status
+        } 
+      });
+      if(data == null || data === undefined)reply({}).code(404);
+      else reply({}).code(200);
+    }catch(err){
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 module.exports = {
     all,
     create,
     byId,
     update,
-    destroy
+    destroy,
+    activeInactive
 }
