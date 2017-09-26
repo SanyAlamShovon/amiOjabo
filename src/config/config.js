@@ -2,8 +2,9 @@ const secretkey = '*Config.%^secretkey*';
 
 module.exports = {
     appConfig: {
-        host: process.env.APP_HOST,
-        port: process.env.APP_PORT,
+        host: 'localhost',
+        port: 3000,
+        labels : 'api',
         routes: {
             cors: true
         }

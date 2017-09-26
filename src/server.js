@@ -5,15 +5,13 @@ const Hapi = require('hapi'),
       HapiSwagger = require('hapi-swagger'),
       Pack = require('.././package'),
       Inert = require('inert'), // inert and vision is for hapi-swager dependency
-      Vision = require('vision');
+      Vision = require('vision'),
+      Config = require('./config/config');
 
 
 var server = new Hapi.Server();
 
-server.connection({
-    host: 'localhost',
-    port:3000
-});
+server.connection(Config.appConfig);
 
 const docOption = {
     info: {
@@ -27,6 +25,7 @@ server.register(Plugin, function (err) {
         console.log(err);
     }
 });
+
 server.register([
     Inert,
     Vision,

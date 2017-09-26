@@ -1,11 +1,16 @@
 const Boom = require('boom');
 const cityModel = require('.././models/city');
 const db = require('../../config/db');
+const ucFirst = require('uppercase-first');
 const all = {
   async: async function (request, reply) {
     try {
       console.info('test controoler');
+<<<<<<< HEAD
       const data = await areaModel.find({});
+=======
+      const data = await cityModel.find({status : true});
+>>>>>>> 13c3ac9343cd69ed40d4654f18c7ac35af9badbc
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -17,6 +22,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const city = new cityModel(request.payload);
+      city.cityName = ucFirst(city.cityName);
       const data =  await city.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
@@ -29,7 +35,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await cityModel.find({_id : request.params.id});
+      const data =  await cityModel.find({_id : request.params.id,status : true});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -61,10 +67,29 @@ const destroy = {
     }
   }
 }
+
+const activeInactive = {
+  async : async function(request,reply){
+    try{
+      const data = await cityModel.findByIdAndUpdate({
+        _id : request.params.id
+      },{
+        $set : {
+          status : request.params.status
+        } 
+      });
+      if(data == null || data === undefined)reply({}).code(404);
+      else reply({}).code(200);
+    }catch(err){
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 module.exports = {
     all,
     create,
     byId,
     update,
-    destroy
+    destroy,
+    activeInactive
 }
