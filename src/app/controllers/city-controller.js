@@ -1,6 +1,7 @@
 const Boom = require('boom');
 const cityModel = require('.././models/city');
 const db = require('../../config/db');
+const ucFirst = require('uppercase-first');
 const all = {
   async: async function (request, reply) {
     try {
@@ -17,6 +18,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const city = new cityModel(request.payload);
+      city.cityName = ucFirst(city.cityName);
       const data =  await city.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
