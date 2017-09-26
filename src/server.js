@@ -1,11 +1,13 @@
 const Hapi = require('hapi'),
       cityRoute = require('./app/routes/city-route'),
+      areaRoute = require('./app/routes/area-route'),
       Plugin = require('./plugin'),
       HapiSwagger = require('hapi-swagger'),
       Pack = require('.././package'),
       Inert = require('inert'), // inert and vision is for hapi-swager dependency
       Vision = require('vision'),
       Config = require('./config/config');
+
 
 var server = new Hapi.Server();
 
@@ -39,6 +41,7 @@ server.register([
 });
 
 server.route(cityRoute.cities);
+server.route(areaRoute.area);
 
 server.start(function(err){
     if (err) {
