@@ -7,6 +7,7 @@ const Hapi = require('hapi'),
       Inert = require('inert'), // inert and vision is for hapi-swager dependency
       Vision = require('vision');
 
+
 var server = new Hapi.Server();
 
 server.connection({

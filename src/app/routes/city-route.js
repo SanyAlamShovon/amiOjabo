@@ -50,16 +50,6 @@ const cities = [
         handler: cityController.destroy,
         validate : cityValidation.destroy
       }
-    },
-    {
-      method: 'PUT',
-      path: '/api/v1/cities/{id}/{status}',
-      config: {
-        tags: ['api'],
-        description: 'Update Status Of City Information',
-        handler: cityController.activeInactive,
-        validate : cityValidation.activeInactive
-      }
     }
   ];
   
