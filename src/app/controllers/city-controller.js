@@ -5,12 +5,7 @@ const ucFirst = require('uppercase-first');
 const all = {
   async: async function (request, reply) {
     try {
-      console.info('test controoler');
-<<<<<<< HEAD
-      const data = await areaModel.find({});
-=======
       const data = await cityModel.find({status : true});
->>>>>>> 13c3ac9343cd69ed40d4654f18c7ac35af9badbc
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
