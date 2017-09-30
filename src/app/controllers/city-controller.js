@@ -30,7 +30,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await cityModel.find({_id : request.params.id,status : true});
+      const data =  await cityModel.find({_id : request.params._id,status : true});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -42,7 +42,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await cityModel.update({_id : request.params.id},request.payload);
+     const data =  await cityModel.update({_id : request.params._id},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -54,7 +54,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await cityModel.remove({_id : request.params.id});
+      const data = await cityModel.remove({_id : request.params._id});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){
@@ -67,7 +67,7 @@ const activeInactive = {
   async : async function(request,reply){
     try{
       const data = await cityModel.findByIdAndUpdate({
-        _id : request.params.id
+        _id : request.params._id
       },{
         $set : {
           status : request.params.status

@@ -34,12 +34,38 @@ const userSchema = new Schema({
             trim : true
       },
       addresses : {
-            type : [Object],
-            required : true
+            cityName : {
+                  type : String,
+                  required : true,
+                  trim : true
+            },
+            areaName : {
+                  type : String,
+                  required : true,
+                  trim : true
+            },
+            details : {
+                  type : String,
+                  required : true,
+                  trim : true
+            }
       },
-      pickup_places : {
-            type : [Object],
-            required : true
+      pickupPlaces : {
+            cityName : {
+                  type : String,
+                  required : true,
+                  trim : true
+            },
+            areaName : {
+                  type : String,
+                  required : true,
+                  trim : true
+            },
+            details : {
+                  type : String,
+                  required : true,
+                  trim : true
+            }
       },
       status : {
             type : Boolean,
@@ -51,7 +77,7 @@ const userSchema = new Schema({
             required : true,
             default : false
       }
-      },{
+},{
       timestamps: true
-      });
-      module.exports = Mongoose.model('users',userSchema,'users');
+});
+module.exports = Mongoose.model('users',userSchema,'users');

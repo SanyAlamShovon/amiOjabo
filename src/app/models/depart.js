@@ -17,7 +17,7 @@ const departSchema = new Schema({
         type : Number,
         required : true
     },
-    passengers : {
+    passengers : [{
         _id : {
             type : Number,
             required : true
@@ -35,7 +35,7 @@ const departSchema = new Schema({
             required : true,
             default : 'DUE'
         }
-    },
+    }],
     status : {
         type : Boolean,
         required : true

@@ -55,7 +55,7 @@ const driversSchema = new Schema({
         required : true
     },
     minCharge : {
-        type : String,
+        type : Number,
         required : true
     },
     perKMPrice : {

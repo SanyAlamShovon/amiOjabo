@@ -3,14 +3,16 @@ const Joi = require('joi');
 const all = {
     params: {
       _id: Joi.number().required(),
-      areaName: Joi.string().required()
     }
   };
 const create = {
   payload : {
     _id: Joi.number().required(),
-    areaName: Joi.string().required(),
-    cityId: Joi.number().required()     
+    driverId : Joi.number().required(),
+    amount : Joi.number().required(),
+    paymentStatus : Joi.string().required(),
+    paymentMonth : Joi.date().required(),
+    status : Joi.boolean().required()   
   }
 }
 
@@ -26,7 +28,11 @@ const update = {
   },
   payload : {
     _id : Joi.number().required(),
-    areaName : Joi.string().required()
+    driverId : Joi.number().required(),
+    amount : Joi.number().required(),
+    paymentStatus : Joi.string().required(),
+    paymentMonth : Joi.date().required(),
+    status : Joi.boolean().required() 
   }
 } 
 
