@@ -9,7 +9,8 @@ const all = {
 const create = {
   payload : {
     _id: Joi.number().required(),
-    areaName: Joi.string().required()   
+    areaName: Joi.string().required(),
+    cityId: Joi.number().required()     
   }
 }
 
