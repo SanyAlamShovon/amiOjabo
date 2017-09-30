@@ -19,7 +19,7 @@ const create = {
       areaName : Joi.string().required(),
       details : Joi.string().required()
     }),
-    phones : Joi.array().items(Joi.string()required()),
+    phones : Joi.array().items(Joi.string().required()),
     hasOwnVehicle : Joi.boolean().required(),
     hasLicenses : Joi.boolean().required(),
     status : Joi.boolean().required(),

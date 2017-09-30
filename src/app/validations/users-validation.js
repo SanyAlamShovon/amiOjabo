@@ -11,7 +11,7 @@ const create = {
     name : Joi.string().required(),
     password : Joi.string().required(),
     phones : Joi.array().items(Joi.string().required()),
-    email : Joi.array().items(Joi.email().required()),
+    email : Joi.array().items(Joi.string().email().required()),
     photo : Joi.string().required(),
     addresses : Joi.object().keys({
       cityName : Joi.string().trim().required(),
@@ -43,7 +43,7 @@ const update = {
     name : Joi.string().required(),
     password : Joi.string().required(),
     phones : Joi.array().items(Joi.string().required()),
-    email : Joi.array().items(Joi.email().required()),
+    email : Joi.array().items(Joi.string().email().required()),
     photo : Joi.string().required(),
     addresses : Joi.object().keys({
       cityName : Joi.string().trim().required(),

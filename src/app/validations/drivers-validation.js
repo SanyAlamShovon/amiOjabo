@@ -11,7 +11,7 @@ const create = {
     name : Joi.string().required().trim(),
     phones : Joi.array().items(Joi.string().required()),
     licenceNumber : Joi.string().required(),
-    vehicles : Joi.object.keys({
+    vehicles : Joi.object().keys({
       vehicleId : Joi.number().required(),
       vehicleName : Joi.string().required(),
       vehicleModel : Joi.string().required(),
@@ -42,7 +42,7 @@ const update = {
     name : Joi.string().required().trim(),
     phones : Joi.array().items(Joi.string().required()),
     licenceNumber : Joi.string().required(),
-    vehicles : Joi.object.keys({
+    vehicles : Joi.object().keys({
       vehicleId : Joi.number().required(),
       vehicleName : Joi.string().required(),
       vehicleModel : Joi.string().required(),
