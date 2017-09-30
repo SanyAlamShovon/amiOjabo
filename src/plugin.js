@@ -27,9 +27,9 @@ const options = {
 module.exports = [
     {
         register: HapiAsync
-    },
-    {
-        register: Good,
-        options: options
     }
+    // {
+    //     register: Good,
+    //     options: options
+    // }
 ];
