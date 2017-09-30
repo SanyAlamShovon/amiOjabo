@@ -1,10 +1,11 @@
 const Boom = require('boom');
-const areaModel = require('.././models/area');
+const fullCarPostModel = require('.././models/full-car-post');
 const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await areaModel.find({});
+      console.info('test controoler');
+      const data = await fullCarPostModel.find({});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -15,8 +16,8 @@ const all = {
 const create = {
   async: async function (request, reply) {
     try {
-      const area = new areaModel(request.payload);
-      const data =  await area.save();
+      const fullCarPost = new fullCarPostModel(request.payload);
+      const data =  await fullCarPost.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
     } catch (err) {
@@ -28,7 +29,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await areaModel.find({_id : request.params._id});
+      const data =  await fullCarPostModel.find({_id : request.params._id});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -40,7 +41,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await areaModel.update({_id : request.params._id},request.payload);
+     const data =  await fullCarPostModel.update({_id : request.params._id},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -52,7 +53,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await areaModel.remove({_id : request.params._id});
+      const data = await fullCarPostModel.remove({_id : request.params._id});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){
