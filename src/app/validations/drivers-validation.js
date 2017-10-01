@@ -17,7 +17,8 @@ const create = {
       vehicleModel : Joi.string().required(),
       vehicleCapacity : Joi.number().required(),
       vehiclePhotos : Joi.array().items(Joi.string().required()),
-      vehicleColor : Joi.string().required()
+      vehicleColor : Joi.string().required(),
+      fuel : Joi.string().required()
     }),
     commision : Joi.number().required(),
     minCharge : Joi.number().required(),
@@ -48,7 +49,8 @@ const update = {
       vehicleModel : Joi.string().required(),
       vehicleCapacity : Joi.number().required(),
       vehiclePhotos : Joi.array().items(Joi.string().required()),
-      vehicleColor : Joi.string().required()
+      vehicleColor : Joi.string().required(),
+      fuel : Joi.string().required()
     }),
     commision : Joi.number().required(),
     minCharge : Joi.number().required(),

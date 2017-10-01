@@ -48,6 +48,11 @@ const driversSchema = new Schema({
         vehicleColor : {
             type : String,
             required : true
+        },
+        fual : {
+            type : String,
+            required : true,
+            default : 'patrol'
         }
     },
     commision : {
