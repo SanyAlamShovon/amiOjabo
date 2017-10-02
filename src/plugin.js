@@ -20,9 +20,6 @@ const options = {
         }, {
             module: 'good-squeeze',
             name: 'SafeJson'
-        }, {
-            module: 'good-file',
-            args: ['./log/awesome_log']
         }]
     }
 };

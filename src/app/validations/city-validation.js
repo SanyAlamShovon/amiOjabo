@@ -16,13 +16,13 @@ const create = {
 
 const byId = {
   params : {
-    id : Joi.number().required()
+    _id : Joi.number().required()
   }
 }
 
 const update = {
   params : {
-    id : Joi.number().required()
+    _id : Joi.number().required()
   },
   payload : {
     _id : Joi.number().required(),
@@ -33,13 +33,13 @@ const update = {
 
 const destroy = {
   params : {
-    id : Joi.number().required()
+    _id : Joi.number().required()
   }
 }
 
 const activeInactive = {
   params : {
-    id : Joi.number().required(),
+    _id : Joi.number().required(),
     status : Joi.boolean().required()
   }
 }

@@ -1,6 +1,14 @@
 const Hapi = require('hapi'),
       cityRoute = require('./app/routes/city-route'),
       areaRoute = require('./app/routes/area-route'),
+      departRoute = require('./app/routes/depart-route'),
+      driverRequestsRoute = require('./app/routes/driver-requests-route'),
+      driversRoute = require('./app/routes/drivers-route'),
+      fullCarPostRoute = require('./app/routes/full-car-post-route'),
+      paymentRoute = require('./app/routes/payment-route'),
+      perSeatPostRoute = require('./app/routes/per-seat-post-route'),
+      reviewRoute = require('./app/routes/review-route'),
+      usersRoute = require('./app/routes/users-route'),
       Plugin = require('./plugin'),
       HapiSwagger = require('hapi-swagger'),
       Pack = require('.././package'),
@@ -42,6 +50,14 @@ server.register([
 
 server.route(cityRoute.cities);
 server.route(areaRoute.area);
+server.route(departRoute.depart);
+server.route(driverRequestsRoute.driverRequest);
+server.route(driversRoute.drivers);
+server.route(fullCarPostRoute.fullCarPost);
+server.route(paymentRoute.payment);
+server.route(perSeatPostRoute.perSeatPost);
+server.route(reviewRoute.review);
+server.route(usersRoute.user);
 
 server.start(function(err){
     if (err) {

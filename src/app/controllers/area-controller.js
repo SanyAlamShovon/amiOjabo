@@ -4,7 +4,6 @@ const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
     try {
-      console.info('test controoler');
       const data = await areaModel.find({});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
@@ -29,7 +28,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await areaModel.find({_id : request.params.id});
+      const data =  await areaModel.find({_id : request.params._id});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -41,7 +40,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await areaModel.update({_id : request.params.id},request.payload);
+     const data =  await areaModel.update({_id : request.params._id},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -53,7 +52,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await areaModel.remove({_id : request.params.id});
+      const data = await areaModel.remove({_id : request.params._id});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){
