@@ -47,7 +47,13 @@ server.register([
         console.log(err);
     }
 });
-
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: function (request, reply) {
+        reply("<h1 style='color:red;'>Plz Goto : <a href='http://localhost:3000/documentation'>http://localhost:3000/documentation</a></h1>");
+    }
+});
 server.route(cityRoute.cities);
 server.route(areaRoute.area);
 server.route(departRoute.depart);
