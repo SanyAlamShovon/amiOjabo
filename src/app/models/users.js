@@ -2,7 +2,7 @@ const Mongoose = require('../../config/db').Mongoose,
       Schema = Mongoose.Schema;
 
 const userSchema = new Schema({
-      _id : {
+      serial : {
             type : Number,
             required : true,
             index: {
@@ -17,20 +17,19 @@ const userSchema = new Schema({
       password : {
             type : String,
             required : true,
-            min : 6
+            min : 2
       },
-      phones : {
-            type : [String],
+      phone : {
+            type : String,
             required : true,
       },
       email : {
-            type : [String],
+            type : String,
             required : true,
             lowercase : true
       },
       photo : {
             type : String,
-            required : true,
             trim : true
       },
       role : {
@@ -42,45 +41,37 @@ const userSchema = new Schema({
       addresses : {
             cityName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             areaName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             details : {
                   type : String,
-                  required : true,
                   trim : true
             }
       },
       pickupPlaces : {
             cityName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             areaName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             details : {
                   type : String,
-                  required : true,
                   trim : true
             }
       },
       status : {
             type : Boolean,
-            required : true,
             default : false
       },
       isBlocked : {
             type : Boolean,
-            required : true,
             default : false
       }
 },{
