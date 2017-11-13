@@ -5,8 +5,8 @@ const userSchema = new Schema({
       _id : {
             type : Number,
             required : true,
-            index: { 
-                  unique: true 
+            index: {
+                  unique: true
             }
       },
       name : {
@@ -32,6 +32,12 @@ const userSchema = new Schema({
             type : String,
             required : true,
             trim : true
+      },
+      role : {
+            type : String,
+            required : true,
+            trim : true,
+            default : 'USER'
       },
       addresses : {
             cityName : {

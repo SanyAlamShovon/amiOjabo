@@ -16,6 +16,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const user = new usersModel(request.payload);
+      user.role = "USER";
       const data =  await user.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
