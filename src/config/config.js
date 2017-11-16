@@ -4,10 +4,15 @@ module.exports = {
     appConfig: {
         host: 'localhost',
         port: 3000,
-        labels : 'api',
+        labels : ['api'],
         routes: {
             cors: true
         }
+    },
+    socketConfig : {
+        host : 'localhost',
+        port : 3001,
+        labels : ['realtime']
     },
     secretkey,
     publicFolder: './public',

@@ -20,6 +20,9 @@ const Hapi = require('hapi'),
 var server = new Hapi.Server();
 
 server.connection(Config.appConfig);
+server.connection(Config.socketConfig); //socket io configration
+const app = server.select('api');
+let io = require("socket.io")(server.select('realtime').listener);
 
 const docOption = {
     info: {
@@ -28,13 +31,13 @@ const docOption = {
     }
 };
 
-server.register(Plugin, function (err) {
+app.register(Plugin, function (err) {
     if (err) {
         console.log(err);
     }
 });
 
-server.register([
+app.register([
     Inert,
     Vision,
     {
@@ -48,20 +51,22 @@ server.register([
     }
 });
 
-server.route(cityRoute.cities);
-server.route(areaRoute.area);
-server.route(departRoute.depart);
-server.route(driverRequestsRoute.driverRequest);
-server.route(driversRoute.drivers);
-server.route(fullCarPostRoute.fullCarPost);
-server.route(paymentRoute.payment);
-server.route(perSeatPostRoute.perSeatPost);
-server.route(reviewRoute.review);
-server.route(usersRoute.user);
+app.route(cityRoute.cities);
+app.route(areaRoute.area);
+app.route(departRoute.depart);
+app.route(driverRequestsRoute.driverRequest);
+app.route(driversRoute.drivers);
+app.route(fullCarPostRoute.fullCarPost);
+app.route(paymentRoute.payment);
+app.route(perSeatPostRoute.perSeatPost);
+app.route(reviewRoute.review);
+app.route(usersRoute.user);
 
 server.start(function(err){
     if (err) {
         throw err;
     }
-    console.log('server running at: ',server.info.uri);
+    console.log('server running at: ',app.info.uri);
+    
 });
+module.exports.sio = io; // exports socket for controllers

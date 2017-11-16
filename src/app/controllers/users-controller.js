@@ -1,12 +1,21 @@
 const Boom = require('boom');
 const usersModel = require('.././models/users');
 const db = require('../../config/db');
+const io = require('../../server');
+console.log("io",io.sockets)
 const all = {
   async: async function (request, reply) {
     try {
       const data = await usersModel.find({});
       if(data === null || data === undefined) reply([]).code(404);
-      else  reply(data).code(200);
+      else {
+          io.on("connection", function (socket) {
+
+            console.log('connected');
+            socket.emit('news', { hello: 'world' });
+           });
+          reply(data).code(200);
+      } 
     } catch (err) {
       reply(Boom.badRequest(err.toString())).code(400);
     }
