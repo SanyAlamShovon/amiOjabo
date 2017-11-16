@@ -1,8 +1,9 @@
 const Boom = require('boom');
 const usersModel = require('.././models/users');
 const db = require('../../config/db');
+<<<<<<< HEAD
 const io = require('../../server');
-console.log("io",io.sockets)
+console.log("io",io.sockets);
 const all = {
   async: async function (request, reply) {
     try {
@@ -25,6 +26,8 @@ const create = {
   async: async function (request, reply) {
     try {
       const user = new usersModel(request.payload);
+      user.serial = await usersModel.find({}).count() + 1;
+      user.role = "USER";
       const data =  await user.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);

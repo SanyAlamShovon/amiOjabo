@@ -51,16 +51,23 @@ app.register([
     }
 });
 
-app.route(cityRoute.cities);
-app.route(areaRoute.area);
-app.route(departRoute.depart);
-app.route(driverRequestsRoute.driverRequest);
-app.route(driversRoute.drivers);
-app.route(fullCarPostRoute.fullCarPost);
-app.route(paymentRoute.payment);
-app.route(perSeatPostRoute.perSeatPost);
-app.route(reviewRoute.review);
-app.route(usersRoute.user);
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: function (request, reply) {
+        reply("<h1 style='color:red;'>Plz Goto : <a href='http://localhost:3000/documentation'>http://localhost:3000/documentation</a></h1>");
+    }
+});
+server.route(cityRoute.cities);
+server.route(areaRoute.area);
+server.route(departRoute.depart);
+server.route(driverRequestsRoute.driverRequest);
+server.route(driversRoute.drivers);
+server.route(fullCarPostRoute.fullCarPost);
+server.route(paymentRoute.payment);
+server.route(perSeatPostRoute.perSeatPost);
+server.route(reviewRoute.review);
+server.route(usersRoute.user);
 
 server.start(function(err){
     if (err) {
