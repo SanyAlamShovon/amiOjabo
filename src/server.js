@@ -14,7 +14,8 @@ const Hapi = require('hapi'),
       Pack = require('.././package'),
       Inert = require('inert'), // inert and vision is for hapi-swager dependency
       Vision = require('vision'),
-      Config = require('./config/config');
+      Config = require('./config/config'),
+      SocketIO = require('./app/socket/socket');
 
 
 var server = new Hapi.Server();
@@ -23,6 +24,7 @@ server.connection(Config.appConfig);
 server.connection(Config.socketConfig); //socket io configration
 const app = server.select('api');
 let io = require("socket.io")(server.select('realtime').listener);
+SocketIO.ioHandler(io,server);
 
 const docOption = {
     info: {
@@ -74,6 +76,5 @@ server.start(function(err){
         throw err;
     }
     console.log('server running at: ',app.info.uri);
-    
+
 });
-module.exports.sio = io; // exports socket for controllers

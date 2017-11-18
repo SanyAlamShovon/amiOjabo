@@ -1,9 +1,6 @@
 const Boom = require('boom');
 const usersModel = require('.././models/users');
 const db = require('../../config/db');
-<<<<<<< HEAD
-const io = require('../../server');
-console.log("io",io.sockets);
 const all = {
   async: async function (request, reply) {
     try {
@@ -16,7 +13,7 @@ const all = {
             socket.emit('news', { hello: 'world' });
            });
           reply(data).code(200);
-      } 
+      }
     } catch (err) {
       reply(Boom.badRequest(err.toString())).code(400);
     }
