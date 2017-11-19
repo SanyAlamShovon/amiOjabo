@@ -18,6 +18,7 @@
     "node": "8.1.4"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "bluebird": "~3.5.0",
     "boom": "^5.2.0",
     "good": "^7.3.0",

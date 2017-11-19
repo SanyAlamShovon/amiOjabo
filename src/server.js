@@ -33,13 +33,13 @@ const docOption = {
     }
 };
 
-app.register(Plugin, function (err) {
+server.register(Plugin, function (err) {
     if (err) {
         console.log(err);
     }
 });
 
-app.register([
+server.register([
     Inert,
     Vision,
     {
@@ -51,6 +51,15 @@ app.register([
     if (err) {
         console.log(err);
     }
+});
+
+server.register(require('hapi-auth-jwt'), (err) => {
+    // We're giving the strategy both a name
+    // and scheme of 'jwt'
+    server.auth.strategy('token', 'jwt', {
+        key: Config.secretkey,
+        verifyOptions: {algorithms: ['HS256']}
+    });
 });
 
 server.route({

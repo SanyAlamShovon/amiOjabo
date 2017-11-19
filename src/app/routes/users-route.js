@@ -50,9 +50,19 @@ const user = [
         handler: userController.destroy,
         validate : userValidation.destroy
       }
+    },
+    {
+        method: 'POST',
+        path: '/api/v1/user/auth',
+        config: {
+            tags: ['api'],
+            description: 'authenticate user',
+            handler: userController.verifyCredentials,
+            validate: userValidation.verifyCredentials
+        }
     }
   ];
-  
+
   module.exports = {
     user
   };

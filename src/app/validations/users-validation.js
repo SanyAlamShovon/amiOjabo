@@ -61,11 +61,20 @@ const destroy = {
   params : {
     _id : Joi.number().required()
   }
-}
+};
+
+const verifyCredentials = {
+    payload: {
+        email: Joi.string().email().required(),
+        password: Joi.string().required()
+    }
+};
+
 module.exports = {
   all,
   create,
   byId,
   update,
-  destroy
+  destroy,
+  verifyCredentials
 };
