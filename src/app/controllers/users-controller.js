@@ -82,7 +82,7 @@ const verifyCredentials = {
           let password = request.payload.password;
             const data = await usersModel.findOne({email : request.payload.email, status : true});
             if (data === null || data === undefined) {
-                reply({'message': 'Incorrect  email or password!'}).code(401);
+                reply({'message': 'Incorrect  email or password!',status : 401}).code(200);
             } else {
                 const compare = bcrypt.compareSync(password, data.password);
                 if (compare) {
@@ -93,7 +93,7 @@ const verifyCredentials = {
                         }
                     ).code(200);
                 } else {
-                    reply({'message': 'Incorrect  email or password!'}).code(406);
+                    reply({'message': 'Incorrect  email or password!',status : 401}).code(200);
                 }
             }
         } catch (err) {
