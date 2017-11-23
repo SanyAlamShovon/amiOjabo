@@ -31,6 +31,11 @@ const byId = {
   }
 }
 
+const byEmail = {
+  params : {
+    email : Joi.string().required()
+  }
+}
 const update = {
   params : {
     _id : Joi.number().required()
@@ -74,6 +79,7 @@ module.exports = {
   all,
   create,
   byId,
+  byEmail,
   update,
   destroy,
   verifyCredentials

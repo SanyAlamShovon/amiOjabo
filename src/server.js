@@ -60,25 +60,27 @@ server.register(require('hapi-auth-jwt'), (err) => {
         key: Config.secretkey,
         verifyOptions: {algorithms: ['HS256']}
     });
+
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: function (request, reply) {
+            reply("<h1 style='color:red;'>Plz Goto : <a href='http://localhost:3000/documentation'>http://localhost:3000/documentation</a></h1>");
+        }
+    });
+    server.route(cityRoute.cities);
+    server.route(areaRoute.area);
+    server.route(departRoute.depart);
+    server.route(driverRequestsRoute.driverRequest);
+    server.route(driversRoute.drivers);
+    server.route(fullCarPostRoute.fullCarPost);
+    server.route(paymentRoute.payment);
+    server.route(perSeatPostRoute.perSeatPost);
+    server.route(reviewRoute.review);
+    server.route(usersRoute.user);
 });
 
-server.route({
-    method: 'GET',
-    path: '/',
-    handler: function (request, reply) {
-        reply("<h1 style='color:red;'>Plz Goto : <a href='http://localhost:3000/documentation'>http://localhost:3000/documentation</a></h1>");
-    }
-});
-server.route(cityRoute.cities);
-server.route(areaRoute.area);
-server.route(departRoute.depart);
-server.route(driverRequestsRoute.driverRequest);
-server.route(driversRoute.drivers);
-server.route(fullCarPostRoute.fullCarPost);
-server.route(paymentRoute.payment);
-server.route(perSeatPostRoute.perSeatPost);
-server.route(reviewRoute.review);
-server.route(usersRoute.user);
+
 
 server.start(function(err){
     if (err) {

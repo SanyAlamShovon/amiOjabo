@@ -53,6 +53,17 @@ const byId = {
   }
 }
 
+const byEmail = {
+  async: async function (request, reply) {
+    try {
+      const data =  await usersModel.findOne({email: request.params.email},{password:0});
+      if(data === null || data === undefined) reply({}).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 const update = {
   async : async function(request,reply){
     try{
@@ -106,6 +117,7 @@ module.exports = {
     all,
     create,
     byId,
+    byEmail,
     update,
     destroy,
     verifyCredentials

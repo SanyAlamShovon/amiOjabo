@@ -32,6 +32,19 @@ const user = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/me/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get Single user Information By Email',
+        handler: userController.byEmail,
+        validate : userValidation.byEmail,
+        auth: {
+            strategy: 'token'
+        }
+      }
+    },
+    {
       method: 'PUT',
       path: '/api/v1/user/{id}',
       config: {

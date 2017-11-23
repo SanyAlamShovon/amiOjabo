@@ -10,7 +10,7 @@ function createToken(user) {
       scope: scopes
     },
     Config.secretkey,
-    { algorithm: 'HS256', expiresIn: "48h" }
+    { algorithm: 'HS256', expiresIn: "30s" }
    );
 }
 module.exports = createToken;
