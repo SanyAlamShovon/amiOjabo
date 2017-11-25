@@ -30,7 +30,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await cityModel.find({_id : request.params._id,status : true});
+      const data =  await cityModel.find({serial : request.params.serial,status : true});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -42,7 +42,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await cityModel.update({_id : request.params._id},request.payload);
+     const data =  await cityModel.update({serial : request.params.serial},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -54,7 +54,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await cityModel.remove({_id : request.params._id});
+      const data = await cityModel.remove({serial : request.params.serial});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){
@@ -67,11 +67,11 @@ const activeInactive = {
   async : async function(request,reply){
     try{
       const data = await cityModel.findByIdAndUpdate({
-        _id : request.params._id
+        serial : request.params.serial
       },{
         $set : {
           status : request.params.status
-        } 
+        }
       });
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);

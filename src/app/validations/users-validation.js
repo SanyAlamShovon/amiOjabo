@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const all = {
   params: {
-    _id: Joi.number().required(),
+    serial: Joi.number().required(),
   }
 };
 const blocked = {
@@ -32,7 +32,7 @@ const create = {
 
 const byId = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 }
 
@@ -46,7 +46,7 @@ const update = {
     serial : Joi.number().required()
   },
   payload : {
-    _id : Joi.string(),
+    serial : Joi.string(),
     serial : Joi.number(),
     name : Joi.string().required(),
     password : Joi.string(),
@@ -72,7 +72,7 @@ const update = {
 
 const destroy = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 };
 

@@ -2,12 +2,12 @@ const Joi = require('joi');
 
 const all = {
     params: {
-      _id: Joi.number().required(),
+      serial: Joi.number().required(),
     }
   };
 const create = {
   payload : {
-    _id: Joi.number().required(),
+    serial: Joi.number().required(),
     driverId : Joi.number().required(),
     postType : Joi.string().required(),
     trip : Joi.object().keys({
@@ -21,22 +21,22 @@ const create = {
     }),
     availableCapacity : Joi.number().required(),
     perSeatPrice : Joi.number().required(),
-    status : Joi.boolean().required()    
+    status : Joi.boolean().required()
   }
 }
 
 const byId = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 }
 
 const update = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   },
   payload : {
-    _id : Joi.number().required(),
+    serial : Joi.number().required(),
     driverId : Joi.number().required(),
     postType : Joi.string().required(),
     trip : Joi.object().keys({
@@ -50,13 +50,13 @@ const update = {
     }),
     availableCapacity : Joi.number().required(),
     perSeatPrice : Joi.number().required(),
-    status : Joi.boolean().required() 
+    status : Joi.boolean().required()
   }
-} 
+}
 
 const destroy = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 }
 module.exports = {

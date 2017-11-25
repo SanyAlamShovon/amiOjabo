@@ -52,7 +52,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await usersModel.find({_id : request.params._id});
+      const data =  await usersModel.find({serial : request.params.serial});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -88,7 +88,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await usersModel.remove({_id : request.params._id});
+      const data = await usersModel.remove({serial : request.params.serial});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){

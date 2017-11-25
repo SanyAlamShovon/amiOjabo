@@ -2,12 +2,12 @@ const Joi = require('joi');
 
 const all = {
     params: {
-      _id: Joi.number().required(),
+      serial: Joi.number().required(),
     }
   };
 const create = {
   payload : {
-    _id: Joi.number().required(), 
+    serial: Joi.number().required(),
     name : Joi.string().required().trim(),
     phones : Joi.array().items(Joi.string().required()),
     licenceNumber : Joi.string().required(),
@@ -30,16 +30,16 @@ const create = {
 
 const byId = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 }
 
 const update = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   },
   payload : {
-    _id : Joi.number().required(),
+    serial : Joi.number().required(),
     name : Joi.string().required().trim(),
     phones : Joi.array().items(Joi.string().required()),
     licenceNumber : Joi.string().required(),
@@ -58,11 +58,11 @@ const update = {
     status : Joi.boolean().required(),
     isBlock : Joi.boolean().required()
   }
-} 
+}
 
 const destroy = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   }
 }
 module.exports = {
