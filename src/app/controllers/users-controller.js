@@ -8,7 +8,20 @@ const createToken = require('./../utils/token');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await usersModel.find({});
+      const data = await usersModel.find({status : true,isBlocked : false},{password:0,__v:0,status:0,role:0});
+      if(data === null || data === undefined) reply([]).code(404);
+      else {
+          reply(data).code(200);
+      }
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+const blocked = {
+  async: async function (request, reply) {
+    try {
+      const data = await usersModel.find({isBlocked : request.params.isBlocked},{password:0,__v:0,status:0,role:0});
       if(data === null || data === undefined) reply([]).code(404);
       else {
           reply(data).code(200);
@@ -62,7 +75,8 @@ const byEmail = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await usersModel.update({_id : request.params._id},request.payload);
+      console.log(request.payload);
+     const data =  await usersModel.update({serial : request.params.serial},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -110,6 +124,7 @@ const verifyCredentials = {
 
 module.exports = {
     all,
+    blocked,
     create,
     byId,
     byEmail,

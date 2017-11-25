@@ -12,6 +12,16 @@ const user = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/user/blocked/{isBlocked}',
+      config: {
+        tags: ['api'],
+        description: 'Get All Blocked Users',
+        handler: userController.blocked,
+        validate : userValidation.blocked
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/user',
       config: {
@@ -46,7 +56,7 @@ const user = [
     },
     {
       method: 'PUT',
-      path: '/api/v1/user/{id}',
+      path: '/api/v1/user/{serial}',
       config: {
         tags: ['api'],
         description: 'Update Single user Information',

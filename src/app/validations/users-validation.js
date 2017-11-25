@@ -1,10 +1,15 @@
 const Joi = require('joi');
 
 const all = {
-    params: {
-      _id: Joi.number().required(),
-    }
-  };
+  params: {
+    _id: Joi.number().required(),
+  }
+};
+const blocked = {
+  params: {
+    isBlocked: Joi.boolean().required(),
+  }
+};
 const create = {
   payload : {
     name : Joi.string().required(),
@@ -38,27 +43,30 @@ const byEmail = {
 }
 const update = {
   params : {
-    _id : Joi.number().required()
+    serial : Joi.number().required()
   },
   payload : {
-    _id : Joi.number().required(),
+    _id : Joi.string(),
+    serial : Joi.number(),
     name : Joi.string().required(),
-    password : Joi.string().required(),
-    phones : Joi.array().items(Joi.string().required()),
-    email : Joi.array().items(Joi.string().email().required()),
-    photo : Joi.string().required(),
+    password : Joi.string(),
+    phone : Joi.string().required(),
+    email : Joi.string().email().required(),
+    photo : Joi.string(),
     addresses : Joi.object().keys({
-      cityName : Joi.string().trim().required(),
-      areaName : Joi.string().trim().required(),
-      details : Joi.string().trim().required()
+      cityName : Joi.string().trim(),
+      areaName : Joi.string().trim(),
+      details : Joi.string().trim()
     }),
     pickupPlaces : Joi.object().keys({
-      cityName : Joi.string().trim().required(),
-      areaName : Joi.string().trim().required(),
-      details : Joi.string().trim().required()
+      cityName : Joi.string().trim(),
+      areaName : Joi.string().trim(),
+      details : Joi.string().trim()
     }),
-    status : Joi.boolean().required(),
-    isBlocked : Joi.boolean().required()
+    status : Joi.boolean(),
+    isBlocked : Joi.boolean(),
+    createdAt : Joi.date(),
+    updatedAt : Joi.date(),
   }
 }
 
@@ -77,6 +85,7 @@ const verifyCredentials = {
 
 module.exports = {
   all,
+  blocked,
   create,
   byId,
   byEmail,
