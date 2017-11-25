@@ -11,11 +11,6 @@ const all = {
       const data = await usersModel.find({});
       if(data === null || data === undefined) reply([]).code(404);
       else {
-          io.on("connection", function (socket) {
-
-            console.log('connected');
-            socket.emit('news', { hello: 'world' });
-           });
           reply(data).code(200);
       }
     } catch (err) {
