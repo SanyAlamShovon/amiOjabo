@@ -46,7 +46,6 @@ const update = {
     serial : Joi.number().required()
   },
   payload : {
-    serial : Joi.string(),
     serial : Joi.number(),
     name : Joi.string().required(),
     password : Joi.string(),

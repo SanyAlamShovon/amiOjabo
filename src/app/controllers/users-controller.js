@@ -21,7 +21,7 @@ const all = {
 const blocked = {
   async: async function (request, reply) {
     try {
-      const data = await usersModel.find({isBlocked : request.params.isBlocked},{password:0,__v:0,status:0,role:0});
+      const data = await usersModel.find({isBlocked : request.params.isBlocked},{_id:0,password:0,__v:0,status:0,role:0});
       if(data === null || data === undefined) reply([]).code(404);
       else {
           reply(data).code(200);
@@ -122,6 +122,31 @@ const verifyCredentials = {
     }
 };
 
+//For Socket IO
+async function socketUpdate(server,serial,params){
+  try{
+     console.log(params," Serial : "+serial);
+     const data =  await usersModel.update({serial : serial},params.user);
+     //console.log("data: ",data)
+     if(data === null || data === undefined)return 404;
+     else return 204
+  }catch(err){
+    return err
+  }
+}
+async function socketGet(server, params) {
+  try {
+    console.log("###########################################################");
+    console.log(params);
+    const data = await usersModel.find({status : true, isBlocked : false},{password:0,__v:0,status:0,role:0});
+    if(data === null || data === undefined) return 404;
+    else {
+      return data;
+    }
+  } catch (err) {
+    return err
+  }
+}
 module.exports = {
     all,
     blocked,
@@ -130,5 +155,7 @@ module.exports = {
     byEmail,
     update,
     destroy,
-    verifyCredentials
+    verifyCredentials,
+    socketUpdate,
+    socketGet
 }
