@@ -2,6 +2,13 @@ const Mongoose = require('../../config/db').Mongoose,
       Schema = Mongoose.Schema;
 
 const countersSchema = new Schema({
+    serial : {
+        type : Number,
+        required : true,
+        index: {
+            unique: true
+        }
+    },
     name : {
         type : String,
         required : true,

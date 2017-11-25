@@ -2,11 +2,11 @@ const Mongoose = require('../../config/db').Mongoose,
       Schema = Mongoose.Schema;
 
 const citySchema = new Schema({
-    _id : {
+    serial : {
         type : Number,
         required : true,
-        index: { 
-            unique: true 
+        index: {
+            unique: true
         }
     },
     cityName : {
