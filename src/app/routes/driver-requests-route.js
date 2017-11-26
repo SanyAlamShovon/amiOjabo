@@ -12,6 +12,15 @@ const driverRequest = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/driverrequest/inactive',
+      config: {
+        tags: ['api'],
+        description: 'Get area Information',
+        handler: driverRequestController.all
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/driverrequest',
       config: {
