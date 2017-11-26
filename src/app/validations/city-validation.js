@@ -8,9 +8,7 @@ const all = {
   };
 const create = {
   payload : {
-    serial: Joi.number().required(),
-    cityName: Joi.string().required(),
-    status: Joi.boolean()
+    cityName: Joi.string().required()
   }
 }
 

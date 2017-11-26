@@ -5,7 +5,7 @@ const ucFirst = require('uppercase-first');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await cityModel.find({status : true});
+      const data = await cityModel.find({status : true},{__v:0,_id:0,status:0,updatedAt:0,createdAt:0});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -17,6 +17,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const city = new cityModel(request.payload);
+      city.serial = await cityModel.find({}).count() + 1;
       city.cityName = ucFirst(city.cityName);
       const data =  await city.save();
       if(data === null || data === undefined) reply({}).code(404);

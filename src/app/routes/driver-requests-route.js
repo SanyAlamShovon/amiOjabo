@@ -52,7 +52,7 @@ const driverRequest = [
       }
     }
   ];
-  
+
   module.exports = {
     driverRequest
   };

@@ -4,7 +4,6 @@ const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
     try {
-      console.info('test controoler');
       const data = await driverRequestModel.find({});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
@@ -17,6 +16,8 @@ const create = {
   async: async function (request, reply) {
     try {
       const driverRequest = new driverRequestModel(request.payload);
+      driverRequest.serial = await driverRequestModel.find({}).count() + 1;
+      console.log("driverRequest",driverRequest);
       const data =  await driverRequest.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
