@@ -18,6 +18,21 @@ const all = {
     }
   }
 };
+
+const inactive = {
+  async: async function (request, reply) {
+    try {
+      const data = await usersModel.find({status : false,isBlocked : false},{password:0,__v:0,status:0,role:0});
+      if(data === null || data === undefined) reply([]).code(404);
+      else {
+          reply(data).code(200);
+      }
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+
 const blocked = {
   async: async function (request, reply) {
     try {
@@ -136,7 +151,7 @@ async function socketUpdate(server,serial,params){
 }
 async function socketGet(server, params) {
   try {
-    console.log("###########################################################");
+    //console.log("###########################################################");
     //console.log(params);
     const data = await usersModel.find({status : true, isBlocked : false},{password:0,__v:0,status:0,role:0});
     if(data === null || data === undefined) return 404;
@@ -150,6 +165,7 @@ async function socketGet(server, params) {
 }
 module.exports = {
     all,
+    inactive,
     blocked,
     create,
     byId,

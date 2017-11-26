@@ -13,6 +13,15 @@ const user = [
     },
     {
       method: 'GET',
+      path: '/api/v1/user/inactive',
+      config: {
+        tags: ['api'],
+        description: 'Get User Information',
+        handler: userController.inactive
+      }
+    },
+    {
+      method: 'GET',
       path: '/api/v1/user/blocked/{isBlocked}',
       config: {
         tags: ['api'],
