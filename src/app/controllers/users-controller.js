@@ -125,11 +125,11 @@ const verifyCredentials = {
 //For Socket IO
 async function socketUpdate(server,serial,params){
   try{
-     console.log(params," Serial : "+serial);
-     const data =  await usersModel.update({serial : serial},params.user);
-     //console.log("data: ",data)
+     console.log(" params : ",params.user);
+     const data =  await usersModel.findOneAndUpdate({serial : serial},params.user,{upsert:true, new : true,select:{password:0,__v:0,status:0,role:0}});
+     console.log("data: ",data)
      if(data === null || data === undefined)return 404;
-     else return 204
+     else return data
   }catch(err){
     return err
   }
@@ -137,10 +137,11 @@ async function socketUpdate(server,serial,params){
 async function socketGet(server, params) {
   try {
     console.log("###########################################################");
-    console.log(params);
+    //console.log(params);
     const data = await usersModel.find({status : true, isBlocked : false},{password:0,__v:0,status:0,role:0});
     if(data === null || data === undefined) return 404;
     else {
+        //console.log("data: ",data)
       return data;
     }
   } catch (err) {

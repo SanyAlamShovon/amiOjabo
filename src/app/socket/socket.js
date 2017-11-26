@@ -4,17 +4,23 @@ const ioHandler = function(io,server){
   let onlineUsers = [];
   io.on('connection',function(socket){
     console.log("socket connected :)");
-    socket.on('room:add',function(data){
-      console.log(data.room);
-      socket.room = data.room;
-      socket.join(data.room);
-    });
+      socket.on("hello",function(data){
+          console.log("hello data : ",data);
+      })
+      socket.emit("connected",{msg : "Connected"})
+//    socket.on('room:add',function(data){
+//      console.log(data.room);
+//      socket.room = data.room;
+//      socket.join(data.room);
+//    });
+      
     userSocket.actionEvent(io,socket,server);
+      
     socket.on('disconnect', function(){
        console.log('disconnect:',socket.id);
-       console.log('socket.room:',socket.room);
+     //  console.log('socket.room:',socket.room);
        let auction_id = 0;
-       socket.leave(socket.room);
+       //socket.leave(socket.room);
       //  onlineBidder.map(function (b) {
       //    let bidder_room = 'auction_bidding_room'+b.auction_id;
       //    //if(socket.room == bidder_room){
