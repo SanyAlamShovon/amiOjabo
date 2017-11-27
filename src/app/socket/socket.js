@@ -1,4 +1,5 @@
 const userSocket = require('./user-socket');
+const driverRequestSocket = require('./driver-request-socket');
 
 const ioHandler = function(io,server){
   let onlineUsers = [];
@@ -15,6 +16,7 @@ const ioHandler = function(io,server){
 //    });
       
     userSocket.actionEvent(io,socket,server);
+    driverRequestSocket.actionEvent(io,socket,server);
       
     socket.on('disconnect', function(){
        console.log('disconnect:',socket.id);

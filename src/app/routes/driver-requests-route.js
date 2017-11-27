@@ -17,7 +17,16 @@ const driverRequest = [
       config: {
         tags: ['api'],
         description: 'Get area Information',
-        handler: driverRequestController.all
+        handler: driverRequestController.inactive
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/driverrequest/onprocess',
+      config: {
+        tags: ['api'],
+        description: 'Get area Information',
+        handler: driverRequestController.onprocess
       }
     },
     {

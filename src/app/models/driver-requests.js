@@ -52,7 +52,15 @@ const driverRequestsSchema = new Schema({
     isInterviewed : {
         type : Boolean,
         default : false
-     }
+     },
+    isSelected : {
+        type : Boolean,
+        default : false
+    },
+    onProcess : {
+        type : Boolean,
+        default : false
+    }
 },{
     timestamps: true
 });
