@@ -7,24 +7,22 @@ const all = {
   };
 const create = {
   payload : {
-    serial: Joi.number().required(),
+    serial: Joi.number(),
     name : Joi.string().required().trim(),
-    phones : Joi.array().items(Joi.string().required()),
+    phone : Joi.string().required(),
     licenceNumber : Joi.string().required(),
+    password : Joi.string().required(),
+    gender : Joi.string(),
     vehicles : Joi.object().keys({
-      vehicleId : Joi.number().required(),
       vehicleName : Joi.string().required(),
-      vehicleModel : Joi.string().required(),
       vehicleCapacity : Joi.number().required(),
-      vehiclePhotos : Joi.array().items(Joi.string().required()),
-      vehicleColor : Joi.string().required(),
+      vehiclePhotos : Joi.array().items(Joi.string()),
       fuel : Joi.string().required()
     }),
     commision : Joi.number().required(),
-    minCharge : Joi.number().required(),
     perKMPrice : Joi.number().required(),
-    status : Joi.boolean().required(),
-    isBlock : Joi.boolean().required()
+    status : Joi.boolean(),
+    isBlock : Joi.boolean()
   }
 }
 
@@ -41,22 +39,18 @@ const update = {
   payload : {
     serial : Joi.number().required(),
     name : Joi.string().required().trim(),
-    phones : Joi.array().items(Joi.string().required()),
-    licenceNumber : Joi.string().required(),
+    phone : Joi.string().required(),
+    licenceNumber : Joi.string(),
     vehicles : Joi.object().keys({
-      vehicleId : Joi.number().required(),
-      vehicleName : Joi.string().required(),
-      vehicleModel : Joi.string().required(),
-      vehicleCapacity : Joi.number().required(),
-      vehiclePhotos : Joi.array().items(Joi.string().required()),
-      vehicleColor : Joi.string().required(),
-      fuel : Joi.string().required()
+      vehicleName : Joi.string(),
+      vehicleCapacity : Joi.number(),
+      vehiclePhotos : Joi.array().items(Joi.string()),
+      fuel : Joi.string()
     }),
-    commision : Joi.number().required(),
-    minCharge : Joi.number().required(),
-    perKMPrice : Joi.number().required(),
-    status : Joi.boolean().required(),
-    isBlock : Joi.boolean().required()
+    commision : Joi.number(),
+    minCharge : Joi.number(),
+    status : Joi.boolean(),
+    isBlock : Joi.boolean()
   }
 }
 

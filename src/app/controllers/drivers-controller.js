@@ -16,6 +16,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const driver = new driverModel(request.payload);
+      driver.serial = await driverModel.find({}).count() + 1;
       const data =  await driver.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
