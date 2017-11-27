@@ -19,6 +19,20 @@ const all = {
   }
 };
 
+const employee = {
+  async: async function (request, reply) {
+    try {
+      const data = await usersModel.find({status : true,isBlocked : false,role:"ADMIN"},{password:0,__v:0,status:0,role:0});
+      if(data === null || data === undefined) reply([]).code(404);
+      else {
+          reply(data).code(200);
+      }
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+
 const inactive = {
   async: async function (request, reply) {
     try {
@@ -140,7 +154,6 @@ const verifyCredentials = {
 //For Socket IO
 async function socketUpdate(server,serial,params){
   try{
-     console.log(" params : ",params.user);
      const data =  await usersModel.findOneAndUpdate({serial : serial},params.user,{upsert:true, new : true,select:{password:0,__v:0,status:0,role:0}});
      console.log("data: ",data)
      if(data === null || data === undefined)return 404;
@@ -151,8 +164,6 @@ async function socketUpdate(server,serial,params){
 }
 async function socketGet(server, params) {
   try {
-    //console.log("###########################################################");
-    //console.log(params);
     const data = await usersModel.find({status : true, isBlocked : false},{password:0,__v:0,status:0,role:0});
     if(data === null || data === undefined) return 404;
     else {
@@ -174,5 +185,6 @@ module.exports = {
     destroy,
     verifyCredentials,
     socketUpdate,
-    socketGet
+    socketGet,
+    employee
 }

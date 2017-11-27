@@ -1,5 +1,6 @@
 const userSocket = require('./user-socket');
 const driverRequestSocket = require('./driver-request-socket');
+const citySocket = require('./city-socket');
 
 const ioHandler = function(io,server){
   let onlineUsers = [];
@@ -14,10 +15,11 @@ const ioHandler = function(io,server){
 //      socket.room = data.room;
 //      socket.join(data.room);
 //    });
-      
+
     userSocket.actionEvent(io,socket,server);
     driverRequestSocket.actionEvent(io,socket,server);
-      
+    citySocket.actionEvent(io,socket,server);
+    
     socket.on('disconnect', function(){
        console.log('disconnect:',socket.id);
      //  console.log('socket.room:',socket.room);

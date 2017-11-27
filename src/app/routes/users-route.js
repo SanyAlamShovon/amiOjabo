@@ -22,6 +22,15 @@ const user = [
     },
     {
       method: 'GET',
+      path: '/api/v1/user/employee',
+      config: {
+        tags: ['api'],
+        description: 'Get User Information',
+        handler: userController.employee
+      }
+    },
+    {
+      method: 'GET',
       path: '/api/v1/user/blocked/{isBlocked}',
       config: {
         tags: ['api'],

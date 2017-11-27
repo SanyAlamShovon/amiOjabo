@@ -43,9 +43,20 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await cityModel.update({serial : request.params.serial},request.payload);
+     const data =  await cityModel.findOneAndUpdate(
+       {
+         serial : request.params.serial
+       },
+       request.payload,
+       {
+         upsert:true, new : true,
+         select:{
+           __v:0,status:0,
+         }
+       }
+     );
      if(data === null || data === undefined)reply({}).code(404);
-     else reply({}).code(204)
+     else reply(data).code(200)
     }catch(err){
       reply(Boom.badRequest(err.toString())),code(400);
     }
@@ -81,11 +92,22 @@ const activeInactive = {
     }
   }
 }
+
+async function socketDelete(server,serial,params){
+  try{
+    const data = await cityModel.findOneAndUpdate({serial : serial},params.city,{new:true,select:{__v:0}});
+    if(data == null || data === undefined)return 404;
+    else return data;
+  }catch(err){
+    return err;
+  }
+}
 module.exports = {
     all,
     create,
     byId,
     update,
     destroy,
-    activeInactive
+    activeInactive,
+    socketDelete
 }
