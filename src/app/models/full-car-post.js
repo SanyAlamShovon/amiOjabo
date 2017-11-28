@@ -53,10 +53,19 @@ const fullCarPostSchema = new Schema({
         required : true,
         default : 0
     },
+    isSuccess : {
+      type : Boolean,
+      default : false;
+    }
     status : {
         type : Boolean,
         required : true,
         default : false
+    },
+    isBlocked : {
+      type : Boolean,
+      required : true,
+      default : false
     }
 },{
     timestamps: true

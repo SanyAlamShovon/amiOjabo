@@ -10,6 +10,7 @@ const create = {
     serial: Joi.number(),
     name : Joi.string().required().trim(),
     phone : Joi.string().required(),
+    email : Joi.string().required(),
     licenceNumber : Joi.string().required(),
     password : Joi.string().required(),
     gender : Joi.string(),

@@ -24,16 +24,14 @@ const perSeatPostSchema = new Schema({
             required : true
         },
         endDate : {
-            type : Date,
-            required : true
+            type : Date
         },
         startTime : {
             type : Date,
             required : true
         },
         endTime : {
-            type : Date,
-            required : true
+            type : Date
         },
         startPlace : {
             type : String,
@@ -62,6 +60,15 @@ const perSeatPostSchema = new Schema({
         type : Boolean,
         required : true,
         default : false
+    },
+    isSuccess : {
+      type: Boolean,
+      default : false
+    },
+    isBlocked : {
+      type : Boolean,
+      required : true,
+      default : false
     }
 },{
     timestamps: true

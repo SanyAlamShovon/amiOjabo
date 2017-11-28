@@ -68,7 +68,7 @@ const create = {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(request.payload.password, salt);
       user.password = hash;
-      user.role = "USER";
+      user.role = user.role  || "USER";
       const data =  await user.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
