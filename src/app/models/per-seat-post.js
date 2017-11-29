@@ -15,7 +15,6 @@ const perSeatPostSchema = new Schema({
     },
     postType : {
         type : String,
-        required : true,
         default : 'PSP'
     },
     trip : {
@@ -23,15 +22,9 @@ const perSeatPostSchema = new Schema({
             type : Date,
             required : true
         },
-        endDate : {
-            type : Date
-        },
         startTime : {
             type : Date,
             required : true
-        },
-        endTime : {
-            type : Date
         },
         startPlace : {
             type : String,
