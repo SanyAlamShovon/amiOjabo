@@ -17,6 +17,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const fullCarPost = new fullCarPostModel(request.payload);
+      fullCarPost.serial = await fullCarPostModel.find({}).count() + 1;
       const data =  await fullCarPost.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);

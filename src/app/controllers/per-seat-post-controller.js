@@ -16,6 +16,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const perSeatPost = new perSeatPostModel(request.payload);
+      perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
       const data =  await perSeatPost.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
@@ -60,10 +61,26 @@ const destroy = {
     }
   }
 }
+
+//Socket
+async function socketCreate(server,serial,params) {
+    try {
+      const perSeatPost = new perSeatPostModel(request.payload);
+      perSeatPost.passengers = perSeatPost.passengers || [];
+      perSeatPost.perSeatPrice = 0;
+      perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
+      const data =  await perSeatPost.save();
+      if(data === null || data === undefined) return 404;
+      else  return data;
+    } catch (err) {
+      return 400;
+    }
+  }
 module.exports = {
     all,
     create,
     byId,
     update,
-    destroy
+    destroy,
+    socketCreate
 }

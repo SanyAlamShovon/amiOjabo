@@ -49,6 +49,10 @@ const perSeatPostSchema = new Schema({
         required : true,
         default : 0
     },
+    passengers : {
+        type : [Object],
+        default: [{}]
+    },
     status : {
         type : Boolean,
         required : true,

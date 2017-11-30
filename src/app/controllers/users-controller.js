@@ -155,7 +155,6 @@ const verifyCredentials = {
 async function socketUpdate(server,serial,params){
   try{
      const data =  await usersModel.findOneAndUpdate({serial : serial},params.user,{upsert:true, new : true,select:{password:0,__v:0,status:0,role:0}});
-     console.log("data: ",data)
      if(data === null || data === undefined)return 404;
      else return data
   }catch(err){
