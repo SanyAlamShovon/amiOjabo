@@ -12,6 +12,15 @@ const perSeatPost = [
       }
     },
     {
+      method : 'GET',
+      path : '/api/v1/search/{start}/{end}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.search
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/perseatpost',
       config: {
@@ -52,7 +61,7 @@ const perSeatPost = [
       }
     }
   ];
-  
+
   module.exports = {
     perSeatPost
   };

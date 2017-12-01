@@ -12,6 +12,21 @@ const all = {
     }
   }
 };
+const search = {
+  async: async function (request, reply) {
+    try {
+      console.log("api request: ",request.params)
+      const data = await perSeatPostModel.find({
+          'trip.startPlace' : request.params.start
+      });
+      console.log("Data : ",data)
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
 const create = {
   async: async function (request, reply) {
     try {
@@ -65,7 +80,8 @@ const destroy = {
 //Socket
 async function socketCreate(server,serial,params) {
     try {
-      const perSeatPost = new perSeatPostModel(request.payload);
+      console.log("params", params);
+      const perSeatPost = new perSeatPostModel(params);
       perSeatPost.passengers = perSeatPost.passengers || [];
       perSeatPost.perSeatPrice = 0;
       perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
@@ -73,11 +89,12 @@ async function socketCreate(server,serial,params) {
       if(data === null || data === undefined) return 404;
       else  return data;
     } catch (err) {
-      return 400;
+      return err;
     }
   }
 module.exports = {
     all,
+    search,
     create,
     byId,
     update,

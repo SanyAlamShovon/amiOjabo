@@ -1,6 +1,7 @@
 const Boom = require('boom');
 const driverModel = require('.././models/drivers');
 const userModel = require('.././models/users');
+const bcrypt = require('bcrypt');
 const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
@@ -17,15 +18,18 @@ const create = {
   async: async function (request, reply) {
     try {
       const driver = new driverModel(request.payload);
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(request.payload.password, salt);
       let userPayload = {
         name : request.payload.name,
         phone : request.payload.phone,
         email : request.payload.email,
-        password : request.payload.password,
+        password : hash,
         role : "DRIVER"
       }
       const user = new userModel(userPayload);
       user.serial = await userModel.find({}).count() + 1;
+
       await user.save();
       driver.serial = await driverModel.find({}).count() + 1;
       const data =  await driver.save();

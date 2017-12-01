@@ -50,7 +50,6 @@ const fullCarPostSchema = new Schema({
     },
     totalPrice : {
         type : Number,
-        required : true,
         default : 0
     },
     isSuccess : {
@@ -59,7 +58,6 @@ const fullCarPostSchema = new Schema({
     }
     status : {
         type : Boolean,
-        required : true,
         default : false
     },
     isBlocked : {

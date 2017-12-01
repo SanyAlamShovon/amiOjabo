@@ -10,7 +10,7 @@ const perSeatPostSchema = new Schema({
         }
     },
     driverId : {
-        type : Number,
+        type : String,
         required : true
     },
     postType : {
@@ -23,7 +23,7 @@ const perSeatPostSchema = new Schema({
             required : true
         },
         startTime : {
-            type : Date,
+            type : String,
             required : true
         },
         startPlace : {
@@ -46,17 +46,14 @@ const perSeatPostSchema = new Schema({
     },
     perSeatPrice : {
         type : Number,
-        required : true,
         default : 0
     },
     passengers : {
-        type : [Object],
-        default: [{}]
+        type : [Object]
     },
     status : {
         type : Boolean,
-        required : true,
-        default : false
+        default : true
     },
     isSuccess : {
       type: Boolean,
@@ -64,7 +61,6 @@ const perSeatPostSchema = new Schema({
     },
     isBlocked : {
       type : Boolean,
-      required : true,
       default : false
     }
 },{
