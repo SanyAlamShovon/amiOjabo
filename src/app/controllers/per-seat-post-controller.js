@@ -15,11 +15,10 @@ const all = {
 const search = {
   async: async function (request, reply) {
     try {
-      console.log("api request: ",request.params)
       const data = await perSeatPostModel.find({
-          'trip.startPlace' : request.params.start
-      });
-      console.log("Data : ",data)
+          'trip.startPlace' : request.params.start,
+          status : true
+      },{isBlocked:0,__v:0,isSuccess:0,status:0});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
