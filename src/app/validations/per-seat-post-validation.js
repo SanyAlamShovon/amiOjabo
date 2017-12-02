@@ -27,7 +27,7 @@ const create = {
 
 const byId = {
   params : {
-    serial : Joi.number().required()
+    _id : Joi.string().required()
   }
 }
 

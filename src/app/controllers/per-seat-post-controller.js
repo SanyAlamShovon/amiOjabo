@@ -20,7 +20,9 @@ const search = {
           status : true
       },{isBlocked:0,__v:0,isSuccess:0,status:0});
       if(data === null || data === undefined) reply([]).code(404);
-      else  reply(data).code(200);
+      else  {
+        reply(data).code(200);
+      }
     } catch (err) {
       reply(Boom.badRequest(err.toString())).code(400);
     }
@@ -43,7 +45,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await perSeatPostModel.find({serial : request.params.serial});
+      const data =  await perSeatPostModel.find({_id : request.params._id});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -78,19 +80,19 @@ const destroy = {
 
 //Socket
 async function socketCreate(server,serial,params) {
-    try {
-      console.log("params", params);
-      const perSeatPost = new perSeatPostModel(params);
-      perSeatPost.passengers = perSeatPost.passengers || [];
-      perSeatPost.perSeatPrice = 0;
-      perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
-      const data =  await perSeatPost.save();
-      if(data === null || data === undefined) return 404;
-      else  return data;
-    } catch (err) {
-      return err;
-    }
+  try {
+    console.log("params", params);
+    const perSeatPost = new perSeatPostModel(params);
+    perSeatPost.passengers = perSeatPost.passengers || [];
+    perSeatPost.perSeatPrice = 0;
+    perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
+    const data =  await perSeatPost.save();
+    if(data === null || data === undefined) return 404;
+    else  return data;
+  } catch (err) {
+    return err;
   }
+}
 module.exports = {
     all,
     search,

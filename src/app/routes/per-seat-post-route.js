@@ -32,7 +32,7 @@ const perSeatPost = [
     },
     {
       method: 'GET',
-      path: '/api/v1/perseatpost/{id}',
+      path: '/api/v1/perseatpost/{_id}',
       config: {
         tags: ['api'],
         description: 'Get Single per Seat Post Information',
