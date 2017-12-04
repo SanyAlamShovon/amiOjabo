@@ -29,10 +29,14 @@ const create = {
 
 const byId = {
   params : {
-    serial : Joi.number().required()
+    id : Joi.string().required()
   }
 }
-
+const byEmail = {
+  params : {
+    email : Joi.string().required()
+  }
+}
 const update = {
   params : {
     serial : Joi.number().required()
@@ -65,5 +69,6 @@ module.exports = {
   create,
   byId,
   update,
-  destroy
+  destroy,
+  byEmail
 };

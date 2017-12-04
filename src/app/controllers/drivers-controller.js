@@ -44,15 +44,29 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await driverModel.find({serial : request.params.serial});
+      const data =  await driverModel.find({_id : request.params.id});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
+
     } catch (err) {
       reply(Boom.badRequest(err.toString())).code(400);
     }
   }
 }
+const byEmail = {
+  async: async function (request, reply) {
+    try {
+      console.log("request.params.id",request.params.email)
+      const data =  await driverModel.find({email : request.params.email});
+      console.log("data",data);
+      if(data === null || data === undefined) reply({}).code(404);
+      else  reply(data).code(200);
 
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 const update = {
   async : async function(request,reply){
     try{
@@ -81,5 +95,6 @@ module.exports = {
     create,
     byId,
     update,
-    destroy
+    destroy,
+    byEmail
 }

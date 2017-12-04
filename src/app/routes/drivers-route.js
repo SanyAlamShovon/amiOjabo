@@ -32,6 +32,16 @@ const drivers = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/SingleDriver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get Single Driver Information',
+        handler: driversController.byEmail,
+        validate : driversValidation.byEmail
+      }
+    },
+    {
       method: 'PUT',
       path: '/api/v1/driver/{id}',
       config: {
@@ -52,7 +62,7 @@ const drivers = [
       }
     }
   ];
-  
+
   module.exports = {
     drivers
   };
