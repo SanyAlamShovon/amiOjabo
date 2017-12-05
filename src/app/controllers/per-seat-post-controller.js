@@ -93,6 +93,16 @@ async function socketCreate(server,serial,params) {
     return err;
   }
 }
+
+async function socketAddPassenger(server,params){
+    try{
+     const data =  await perSeatPostModel.findOneAndUpdate({_id : params.postId},params,{upsert:true, new : true});
+     if(data === null || data === undefined)return 404;
+     else return data;
+    }catch(err){
+      return 400;
+    }
+}
 module.exports = {
     all,
     search,

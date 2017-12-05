@@ -16,6 +16,8 @@ function actionEvent(io,socket,server){
             io.sockets.emit('unblock-active-user',result);
         });
     });
+    
+    
 }
 
 module.exports = {
