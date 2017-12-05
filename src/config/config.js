@@ -19,6 +19,12 @@ module.exports = {
     uploadFolder: '/resources',
     MixFolder: './public/resources',
     MixInsideFolder: './public/resources/',
+    // mongo: {
+    //     username: 'prosen',
+    //     password: '123456',
+    //     url: 'localhost',
+    //     database: 'amiojabo'
+    // }
     mongo: {
         username: 'amiojabo',
         password: 'PROSENghosh28',

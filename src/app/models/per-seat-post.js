@@ -1,5 +1,6 @@
 const Mongoose = require('../../config/db').Mongoose,
 Schema = Mongoose.Schema;
+const user = require('./users');
 
 const perSeatPostSchema = new Schema({
     serial : {
@@ -49,7 +50,7 @@ const perSeatPostSchema = new Schema({
         default : 0
     },
     passengers : {
-        type : [Object]
+        type : []
     },
     status : {
         type : Boolean,

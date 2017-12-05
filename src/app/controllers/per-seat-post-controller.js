@@ -94,13 +94,35 @@ async function socketCreate(server,serial,params) {
   }
 }
 
-async function socketAddPassenger(server,params){
+async function socketAddPassenger(server,data){
     try{
-     const data =  await perSeatPostModel.findOneAndUpdate({_id : params.postId},params,{upsert:true, new : true});
-     if(data === null || data === undefined)return 404;
-     else return data;
+      console.log("params",data.buySeat)
+      let user = JSON.parse(data.user);
+      let post = JSON.parse(data.post);
+      user.isCanceled = false;
+      //console.log("user",user)
+      //post.passengers.push(user);
+      if(data.buySeat <= post.availableCapacity){
+        post.availableCapacity = post.availableCapacity - data.buySeat;
+      }
+     const res =  await perSeatPostModel.findOneAndUpdate({_id : post._id},{$set : {availableCapacity : post.availableCapacity},
+       $push : {"passengers" :{
+         _id : user._id,
+         phone : user.phone,
+         name : user.name,
+         email : user.email,
+         seatBought : data.buySeat,
+         source : post.source,
+         destination : post.destination,
+         boughtDate : new Date(),
+         totalPrice :  data.buySeat * post.cost,
+         isCanceled : false
+       }}},
+      {upsert:true, new : true});
+     if(res === null || res === undefined)return 404;
+     else return res;
     }catch(err){
-      return 400;
+      return err;
     }
 }
 module.exports = {
@@ -110,5 +132,6 @@ module.exports = {
     byId,
     update,
     destroy,
-    socketCreate
+    socketCreate,
+    socketAddPassenger
 }

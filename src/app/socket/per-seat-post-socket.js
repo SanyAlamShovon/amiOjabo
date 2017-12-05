@@ -8,11 +8,13 @@ function actionEvent(io,socket,server){
            io.sockets.emit('new-post-created',result);
        });
     });
-    
+
     socket.on('user-buy-seat',function(data){
-        perSeatController.socketAddPassenger(server,data).then(function(result){
-            console.log("result: ",result);
-        });
+      //console.log("DATA: ",post)
+      perSeatController.socketAddPassenger(server,data).then(function(result){
+          console.log("result: ",result);
+          io.sockets.emit('user-buy-finished',result)
+      });
     })
 }
 
