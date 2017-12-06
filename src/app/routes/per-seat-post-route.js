@@ -12,12 +12,30 @@ const perSeatPost = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/canceledScheduleofdriver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get Cancel Schedule',
+        handler: perSeatPostController.cancelScheduleOfDriver
+      }
+    },
+    {
       method : 'GET',
       path : '/api/v1/search/{start}/{end}',
       config: {
         tags: ['api'],
         description: 'Get per Seat Post Information',
         handler: perSeatPostController.search
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/usertrip/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userTrip
       }
     },
     {

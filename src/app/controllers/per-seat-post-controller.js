@@ -4,7 +4,7 @@ const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await perSeatPostModel.find({});
+      const data = await perSeatPostModel.find({status:true});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -36,6 +36,31 @@ const create = {
       const data =  await perSeatPost.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+
+const cancelScheduleOfDriver = {
+    async: async function (request, reply) {
+    try {
+      const data = await perSeatPostModel.find({status:false,driverId : request.params.email});
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+
+const userTrip = {
+    async: async function (request, reply) {
+    try {
+        console.log("request.params.id",request.params.id)
+      const data = await perSeatPostModel.find({status:true,passengers:{$elemMatch:{email:request.params.email}}});
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
     } catch (err) {
       reply(Boom.badRequest(err.toString())).code(400);
     }
@@ -81,7 +106,7 @@ const destroy = {
 //Socket
 async function socketCreate(server,serial,params) {
   try {
-    console.log("params", params);
+    //console.log("params", params);
     const perSeatPost = new perSeatPostModel(params);
     perSeatPost.passengers = perSeatPost.passengers || [];
     perSeatPost.perSeatPrice = 0;
@@ -125,6 +150,16 @@ async function socketAddPassenger(server,data){
       return err;
     }
 }
+
+async function changeStatus(server,data){
+    try{
+     const res =  await perSeatPostModel.findOneAndUpdate({_id : data.id},{$set : {status : false}},{upsert:true, new : true});
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
 module.exports = {
     all,
     search,
@@ -133,5 +168,8 @@ module.exports = {
     update,
     destroy,
     socketCreate,
-    socketAddPassenger
+    socketAddPassenger,
+    changeStatus,
+    cancelScheduleOfDriver,
+    userTrip
 }
