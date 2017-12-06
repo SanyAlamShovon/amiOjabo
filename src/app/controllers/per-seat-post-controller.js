@@ -141,6 +141,8 @@ async function socketAddPassenger(server,data){
          destination : post.destination,
          boughtDate : new Date(),
          totalPrice :  data.buySeat * post.cost,
+         rating : user.rating,
+         isRated : false,
          isCanceled : false
        }}},
       {upsert:true, new : true});

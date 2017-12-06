@@ -6,7 +6,8 @@ function renderUserData(data){
     email: data.email,
     phone: data.phone,
     status: data.status,
-    role: data.role
+    role: data.role,
+    rating : data.rating
   }
 }
 

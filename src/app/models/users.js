@@ -70,6 +70,10 @@ const userSchema = new Schema({
             type : Boolean,
             default : true
       },
+      rating : {
+        type: Number,
+        default :0
+      },
       isBlocked : {
             type : Boolean,
             default : false
