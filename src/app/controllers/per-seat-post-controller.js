@@ -142,10 +142,32 @@ async function socketAddPassenger(server,data){
          boughtDate : new Date(),
          totalPrice :  data.buySeat * post.cost,
          rating : user.rating,
+         ratedBy : user.ratedBy,
+         thisReting : 0,
          isRated : false,
          isCanceled : false
        }}},
       {upsert:true, new : true});
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
+
+async function changeRating(server,data){
+    try{
+      let user = data.user;
+      let post = data.post;
+      let currentRating = data.currentRating || 0;
+      console.log("sas",(((user.rating * user.ratedBy) + currentRating) / (user.ratedBy + 1)));
+      const res =  await perSeatPostModel.findOneAndUpdate({_id : post._id,"passengers._id" : user._id},
+              {$set : {
+                "passengers.$.rating" : (((user.rating * user.ratedBy) + currentRating) / (user.ratedBy + 1)),
+                "passengers.$.ratedBy" : user.ratedBy + 1,
+                "passengers.$.thisReting" : currentRating,
+                "passengers.$.isRated" : true
+              } },{upsert:true, new : true});
      if(res === null || res === undefined)return 404;
      else return res;
     }catch(err){
@@ -173,5 +195,6 @@ module.exports = {
     socketAddPassenger,
     changeStatus,
     cancelScheduleOfDriver,
-    userTrip
+    userTrip,
+    changeRating
 }

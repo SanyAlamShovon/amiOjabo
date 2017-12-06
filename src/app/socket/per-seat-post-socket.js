@@ -16,12 +16,19 @@ function actionEvent(io,socket,server){
           io.sockets.emit('user-buy-finished',result)
       });
     });
-    
+
     socket.on('cancel-schedule',function(data){
         perSeatController.changeStatus(server,data).then(function(result){
             //console.log("result",result)
             socket.emit('cancel-schedule-finished',result);
         });
+    });
+
+    socket.on('add-user-rating',function(data){
+      perSeatController.changeRating(server,data).then(function(result){
+        console.log('################################################')
+        console.log("result",result)
+      });
     });
 }
 

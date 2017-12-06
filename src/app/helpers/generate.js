@@ -7,7 +7,8 @@ function renderUserData(data){
     phone: data.phone,
     status: data.status,
     role: data.role,
-    rating : data.rating
+    rating : data.rating,
+    ratedBy : data.ratedBy
   }
 }
 

@@ -74,6 +74,10 @@ const userSchema = new Schema({
         type: Number,
         default :0
       },
+      ratedBy : {
+        type : Number,
+        default : 0
+      },
       isBlocked : {
             type : Boolean,
             default : false
