@@ -30,6 +30,13 @@ function actionEvent(io,socket,server){
         console.log("result",result)
       });
     });
+
+    socket.on('cancel-user-booked-schedule',function(data){
+      perSeatController.cancelSchedule(server,data).then(function(result){
+        //console.log("Cancel Schedule : ",result)
+        socket.emit('cancel-user-booked-schedule-finished',result);
+      });
+    });
 }
 
 module.exports = {

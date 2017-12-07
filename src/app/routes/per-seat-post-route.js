@@ -13,6 +13,15 @@ const perSeatPost = [
     },
     {
       method: 'GET',
+      path: '/api/v1/perseatpost/driver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.driverPost
+      }
+    },
+    {
+      method: 'GET',
       path: '/api/v1/canceledScheduleofdriver/{email}',
       config: {
         tags: ['api'],

@@ -28,10 +28,10 @@ const create = {
         role : "DRIVER"
       }
       const user = new userModel(userPayload);
-      user.serial = await userModel.find({}).count() + 1;
+      user.serial = Number((Math.random() * 11000000000000 + 1).toFixed());
 
       await user.save();
-      driver.serial = await driverModel.find({}).count() + 1;
+      driver.serial = Number((Math.random() * 11000000000000 + 1).toFixed());
       const data =  await driver.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
