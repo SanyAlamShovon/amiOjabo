@@ -35,7 +35,7 @@ const driverRequestsSchema = new Schema({
         default : "NO"
     },
     vechileType : {
-        type : String,
+        type : String
     },
     hasLicenses : {
         type : String,
@@ -53,7 +53,7 @@ const driverRequestsSchema = new Schema({
         type : Boolean,
         default : false
      },
-    isSelected : {
+    isChoosed : {
         type : Boolean,
         default : false
     },

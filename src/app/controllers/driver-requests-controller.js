@@ -15,7 +15,7 @@ const all = {
 const inactive = {
   async: async function (request, reply) {
     try {
-      const data = await driverRequestModel.find({status:false,onProcess:false,isSelected:false});
+      const data = await driverRequestModel.find({status:false,onProcess:false,isChoosed:false});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -26,7 +26,7 @@ const inactive = {
 const onprocess = {
   async: async function (request, reply) {
     try {
-      const data = await driverRequestModel.find({status:false,onProcess:true,isSelected:false});
+      const data = await driverRequestModel.find({status:false,onProcess:true,isChoosed:false});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
