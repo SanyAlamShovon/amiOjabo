@@ -9,6 +9,8 @@ const create = {
   payload : {
     name : Joi.string().required().max(50).min(2),
     gender : Joi.string().required(),
+    email : Joi.string(),
+    vechileType : Joi.string(),
     cityName : Joi.string().required(),
     phone : Joi.string().required(),
     hasOwnVehicle : Joi.string().required(),

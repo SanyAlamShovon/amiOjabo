@@ -34,7 +34,7 @@ const driverRequestsSchema = new Schema({
         type : String,
         default : "NO"
     },
-    vehicleType : {
+    vechileType : {
         type : String,
     },
     hasLicenses : {

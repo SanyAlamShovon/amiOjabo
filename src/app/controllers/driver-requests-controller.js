@@ -41,6 +41,8 @@ const create = {
       driverRequest.serial = await driverRequestModel.find({}).count() + 1;
       console.log("driverRequest",driverRequest);
       const data =  await driverRequest.save();
+        console.log('########################################');
+        console.log("data",data)
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
     } catch (err) {
