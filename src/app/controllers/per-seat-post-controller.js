@@ -23,10 +23,11 @@ const getBlockedPost = {
     }
   }
 };
+
 const driverPost = {
   async: async function (request, reply) {
     try {
-      const data = await perSeatPostModel.find({status:true,driverId : request.params.email});
+      const data = await perSeatPostModel.find({status:true,driverId : request.params.email,isSuccess : false});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -91,6 +92,7 @@ const userTrip = {
     try {
       const data = await perSeatPostModel.find({
         status:true,
+        isSuccess : false,
         passengers : {$elemMatch : {
           email: request.params.email,
           isCanceled: false
@@ -135,6 +137,30 @@ const userCancelTrip = {
   }
 }
 
+const userTripSuccess = {
+  async: async function (request, reply) {
+    try {
+      console.log("request.params",request.params)
+      const data = await perSeatPostModel.find({
+        status:true,
+        isSuccess : true,
+        passengers : {$elemMatch : {
+          email: request.params.email
+        }}});
+      if(data !== null || data !== undefined){
+        data.forEach(function(v){
+          return v.passengers = v.passengers.filter(p => p.email == request.params.email);
+        });
+      }
+      // console.log(tmp)
+      console.log(data)
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 const byId = {
   async: async function (request, reply) {
     try {
@@ -146,7 +172,28 @@ const byId = {
     }
   }
 }
-
+const payments = {
+  async: async function (request, reply) {
+    try {
+      const data =  await perSeatPostModel.aggregate([{"$unwind": "$passengers"},
+        {
+          $group : {
+            _id : {
+              did : "$driverId",
+              month : {$month : "$createdAt"},
+              year : {$year : "$createdAt"}
+            },
+            totalDue: { $sum: "$passengers.totalPrice" }
+          }
+        }
+      ]);
+      if(data === null || data === undefined) reply({}).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 const update = {
   async : async function(request,reply){
     try{
@@ -271,6 +318,25 @@ async function blockedPost(server,data){
       return err;
     }
 }
+
+async function successTrip(server,data){
+    try{
+     const res =  await perSeatPostModel.findOneAndUpdate({
+       _id : data._id
+     },
+     {
+       $set : {
+         isSuccess : true
+       }
+     },
+     {upsert:true, new : true});
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
+
 async function cancelSchedule(server,data){
     try{
      const res =  await perSeatPostModel.findOneAndUpdate({
@@ -306,5 +372,8 @@ module.exports = {
     cancelSchedule,
     userCancelTrip,
     blockedPost,
-    getBlockedPost
+    getBlockedPost,
+    successTrip,
+    userTripSuccess,
+    payments
 }

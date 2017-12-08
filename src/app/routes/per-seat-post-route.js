@@ -66,6 +66,24 @@ const perSeatPost = [
       }
     },
     {
+      method : 'GET',
+      path : '/api/v1/payments',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.payments
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/usertripsuccess/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userTripSuccess
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/perseatpost',
       config: {
