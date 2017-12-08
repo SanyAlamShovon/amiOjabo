@@ -4,7 +4,18 @@ const db = require('../../config/db');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await perSeatPostModel.find({status:true});
+      const data = await perSeatPostModel.find({status:true,isBlocked : false});
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+const getBlockedPost = {
+  async: async function (request, reply) {
+    try {
+      const data = await perSeatPostModel.find({status:true,isBlocked : true});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -26,8 +37,18 @@ const driverPost = {
 const search = {
   async: async function (request, reply) {
     try {
+      console.log("request.params",request.params)
       const data = await perSeatPostModel.find({
           'trip.startPlace' : request.params.start,
+          $or : [{
+            'trip.endPlace' : request.params.end
+          },{
+            'trip.waypoints' : {
+              $elemMatch : {
+                $eq : request.params.end
+              }
+            }
+          }],
           status : true
       },{isBlocked:0,__v:0,isSuccess:0,status:0});
       if(data === null || data === undefined) reply([]).code(404);
@@ -233,6 +254,23 @@ async function changeStatus(server,data){
     }
 }
 
+async function blockedPost(server,data){
+    try{
+     const res =  await perSeatPostModel.findOneAndUpdate({
+       _id : data._id
+     },
+     {
+       $set : {
+         isBlocked : true
+       }
+     },
+     {upsert:true, new : true});
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
 async function cancelSchedule(server,data){
     try{
      const res =  await perSeatPostModel.findOneAndUpdate({
@@ -266,5 +304,7 @@ module.exports = {
     changeRating,
     driverPost,
     cancelSchedule,
-    userCancelTrip
+    userCancelTrip,
+    blockedPost,
+    getBlockedPost
 }
