@@ -48,6 +48,15 @@ const perSeatPost = [
       }
     },
     {
+      method : 'GET',
+      path : '/api/v1/usertripcancel/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userCancelTrip
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/perseatpost',
       config: {

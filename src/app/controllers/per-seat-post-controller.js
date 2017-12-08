@@ -90,6 +90,29 @@ const userTrip = {
     }
   }
 };
+const userCancelTrip = {
+  async: async function (request, reply) {
+    try {
+      const data = await perSeatPostModel.find({
+        status:true,
+        passengers : {$elemMatch : {
+          email: request.params.email,
+          isCanceled: true
+        }}});
+      if(data !== null || data !== undefined){
+        data.forEach(function(v){
+          return v.passengers = v.passengers.filter(p => p.isCanceled == true);
+        });
+      }
+      // console.log(tmp)
+      console.log(data)
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+}
 
 const byId = {
   async: async function (request, reply) {
@@ -212,7 +235,6 @@ async function changeStatus(server,data){
 
 async function cancelSchedule(server,data){
     try{
-      console.log("SOCKET : ",data)
      const res =  await perSeatPostModel.findOneAndUpdate({
        _id : data.postData._id,
        "passengers.uid" : data.uid
@@ -243,5 +265,6 @@ module.exports = {
     userTrip,
     changeRating,
     driverPost,
-    cancelSchedule
+    cancelSchedule,
+    userCancelTrip
 }
