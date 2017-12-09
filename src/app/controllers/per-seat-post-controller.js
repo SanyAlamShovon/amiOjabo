@@ -175,17 +175,26 @@ const byId = {
 const payments = {
   async: async function (request, reply) {
     try {
-      const data =  await perSeatPostModel.aggregate([{"$unwind": "$passengers"},
+      const data =  await perSeatPostModel.aggregate([
+        {
+          $match: {
+              isSuccess: true,
+              isPaid : false,
+          }
+      },
+        {"$unwind": "$passengers"},
         {
           $group : {
             _id : {
               did : "$driverId",
-              month : {$month : "$createdAt"},
-              year : {$year : "$createdAt"}
+              date : "$createdAt",
+              postId : "$_id",
+              commision : "$commision"
             },
             totalDue: { $sum: "$passengers.totalPrice" }
           }
-        }
+        },
+        { "$sort": { "date": -1 } },
       ]);
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
@@ -355,6 +364,23 @@ async function cancelSchedule(server,data){
       return err;
     }
 }
+
+async function paymentSuccess(server,data){
+    try{
+     const res =  await perSeatPostModel.findOneAndUpdate({
+       _id : data.id
+     },{
+       $set : {isPaid : true}
+     },
+     {
+       upsert:true, new : true
+     });
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
 module.exports = {
     all,
     search,
@@ -375,5 +401,6 @@ module.exports = {
     getBlockedPost,
     successTrip,
     userTripSuccess,
-    payments
+    payments,
+    paymentSuccess
 }

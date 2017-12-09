@@ -49,6 +49,12 @@ function actionEvent(io,socket,server){
         socket.emit('success-trip-finished',result)
       });
     });
+
+    socket.on('payment-success',function(data){
+      perSeatController.paymentSuccess(server,data).then(function(result){
+          socket.emit('payment-success-finished',result)
+      });
+    });
 }
 
 module.exports = {

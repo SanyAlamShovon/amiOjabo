@@ -63,6 +63,18 @@ const perSeatPostSchema = new Schema({
     isBlocked : {
       type : Boolean,
       default : false
+    },
+    isPaid : {
+      type : Boolean,
+      default : false
+    },
+    commision : {
+      type : Number,
+      default : 0
+    },
+    driverPhone : {
+      type : String,
+      default : ''
     }
 },{
     timestamps: true
