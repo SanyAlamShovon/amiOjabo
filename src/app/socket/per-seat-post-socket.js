@@ -40,6 +40,8 @@ function actionEvent(io,socket,server){
 
     socket.on('blocked-post',function(data){
       perSeatController.blockedPost(server,data).then(function(result){
+          console.log("-------------------------------------")
+          console.log(result)
         socket.emit('blocked-post-finished',result);
       });
     });

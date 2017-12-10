@@ -12,6 +12,15 @@ const drivers = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/driver/blocked',
+      config: {
+        tags: ['api'],
+        description: 'Get Drivers Information',
+        handler: driversController.blocked
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/driver',
       config: {

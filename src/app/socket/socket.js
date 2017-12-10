@@ -2,6 +2,7 @@ const userSocket = require('./user-socket');
 const driverRequestSocket = require('./driver-request-socket');
 const citySocket = require('./city-socket');
 const perSeatPostSocket = require('./per-seat-post-socket');
+const driverSocket = require('./driver-socket');
 
 const ioHandler = function(io,server){
   let onlineUsers = [];
@@ -21,6 +22,7 @@ const ioHandler = function(io,server){
     driverRequestSocket.actionEvent(io,socket,server);
     citySocket.actionEvent(io,socket,server);
     perSeatPostSocket.actionEvent(io,socket,server);
+    driverSocket.actionEvent(io,socket,server);
       
     socket.on('disconnect', function(){
        console.log('disconnect:',socket.id);
