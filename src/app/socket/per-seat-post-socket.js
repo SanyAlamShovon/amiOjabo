@@ -1,5 +1,5 @@
 const perSeatController = require('./../controllers/per-seat-post-controller');
-
+const userController = require('./../controllers/users-controller');
 function actionEvent(io,socket,server){
     socket.on('creating-new-post',function(data){
         //console.log("socket data : ",data)
@@ -25,15 +25,21 @@ function actionEvent(io,socket,server){
     });
 
     socket.on('add-user-rating',function(data){
+        //console.log("data-------",data)
       perSeatController.changeRating(server,data).then(function(result){
-        console.log('################################################')
-        console.log("result",result)
+        //console.log('################################################')
+          var rating = result.passengers[0].rating;
+          var ratedby = result.passengers[0].ratedBy;
+          var _id = result.passengers[0]._id;
+          userController.updateUserRating(server,{ratedby : ratedby,rating : rating,_id : _id});
+        //console.log("result",result)
+          socket.emit('add-user-rating',result);
       });
     });
 
     socket.on('cancel-user-booked-schedule',function(data){
       perSeatController.cancelSchedule(server,data).then(function(result){
-        //console.log("Cancel Schedule : ",result)
+        //console.log("Cancel Schedule : ",result) 
         socket.emit('cancel-user-booked-schedule-finished',result);
       });
     });

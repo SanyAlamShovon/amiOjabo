@@ -173,6 +173,24 @@ async function socketGet(server, params) {
     return err
   }
 }
+async function updateUserRating(server, params) {
+  try {
+      console.log("params",params)
+    const data = await usersModel.findOneAndUpdate({status : true,_id:params._id},{
+        $set : {
+            rating : params.rating,
+            ratedBy : params.ratedby
+        }
+    });
+    if(data === null || data === undefined) return 404;
+    else {
+        //console.log("data: ",data)
+      return data;
+    }
+  } catch (err) {
+    return err
+  }
+}
 module.exports = {
     all,
     inactive,
@@ -185,5 +203,6 @@ module.exports = {
     verifyCredentials,
     socketUpdate,
     socketGet,
-    employee
+    employee,
+    updateUserRating
 }

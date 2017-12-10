@@ -16,8 +16,6 @@ function actionEvent(io,socket,server){
     socket.on('delete-driver',function(data){
         console.log("data",data)
         driverController.socketDeleteDriver(server,data).then(function(result){
-            console.log('*//*/*/*/*/*/*/*/*/*/*/**/*')
-            console.log("result",result)
             socket.emit('delete-driver-finished',result);
         });
     });
