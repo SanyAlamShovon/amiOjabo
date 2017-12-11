@@ -17,7 +17,11 @@ function actionEvent(io,socket,server){
         });
     });
     
-    
+    socket.on('delete-user',function(data){
+       userController.socketDelete(server,data).then(function(result){
+            io.sockets.emit('delete-user-finished',result);
+        });
+    });
 }
 
 module.exports = {

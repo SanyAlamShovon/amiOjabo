@@ -131,6 +131,7 @@ const verifyCredentials = {
           let password = request.payload.password;
             const data = await usersModel.findOne({email : request.payload.email, status : true});
             if (data === null || data === undefined) {
+                //console.log("login fail")
                 reply({'message': 'Incorrect  email or password!',status : 401}).code(200);
             } else {
                 const compare = bcrypt.compareSync(password, data.password);
@@ -191,6 +192,23 @@ async function updateUserRating(server, params) {
     return err
   }
 }
+
+async function socketDelete(server, params) {
+  try {
+    const data = await usersModel.findOneAndUpdate({status : true,_id:params.id},{
+        $set : {
+            status : false
+        }
+    });
+    if(data === null || data === undefined) return 404;
+    else {
+        //console.log("data: ",data)
+      return data;
+    }
+  } catch (err) {
+    return err
+  }
+}
 module.exports = {
     all,
     inactive,
@@ -204,5 +222,6 @@ module.exports = {
     socketUpdate,
     socketGet,
     employee,
-    updateUserRating
+    updateUserRating,
+    socketDelete
 }
