@@ -6,13 +6,13 @@ function actionEvent(io,socket,server){
             socket.emit('blocked-driver-finished',result);
         });
     });
-    
+
     socket.on('unblocked-driver',function(data){
         driverController.socketUnblockedDriver(server,data).then(function(result){
             socket.emit('unblocked-driver-finished',result);
         });
     });
-    
+
     socket.on('delete-driver',function(data){
         console.log("data",data)
         driverController.socketDeleteDriver(server,data).then(function(result){

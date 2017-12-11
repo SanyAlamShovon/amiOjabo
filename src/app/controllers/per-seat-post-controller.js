@@ -40,6 +40,8 @@ const search = {
     try {
       console.log("request.params",request.params)
       const data = await perSeatPostModel.find({
+          status : true,
+          isBlocked : false,
           'trip.startPlace' : request.params.start,
           $or : [{
             'trip.endPlace' : request.params.end
@@ -153,7 +155,7 @@ const userTripSuccess = {
         });
       }
       // console.log(tmp)
-      console.log(data)
+      console.log("succes Trip data : ",data)
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -233,6 +235,7 @@ async function socketCreate(server,serial,params) {
     //console.log("params", params);
     const perSeatPost = new perSeatPostModel(params);
     perSeatPost.passengers = perSeatPost.passengers || [];
+    perSeatPost.driver = perSeatPost.driver || [];
     perSeatPost.perSeatPrice = 0;
     perSeatPost.serial = await perSeatPostModel.find({}).count() + 1;
     const data =  await perSeatPost.save();
@@ -381,6 +384,36 @@ async function paymentSuccess(server,data){
       return err;
     }
 }
+
+async function socketPerpostDriverRating(server,data,drating,userEmail){
+    try{
+      console.log("socketPerpostDriverRating",data);
+     const res =  await perSeatPostModel.findOneAndUpdate({
+       _id : data._id,
+        "driver._id": data.driver._id
+     },{
+       $set : {
+         "driver.dratedBy" : data.driver.dratedBy + 1,
+         "driver.drating" : data.driver.drating + drating
+       },
+       $push: {
+         thisDRating : {
+           userEmail : userEmail,
+           postId : data._id,
+           isRated : true,
+           drating : drating
+         }
+       }
+     },{
+       upsert:true, new : true
+     });
+     if(res === null || res === undefined)return 404;
+     else return res;
+    }catch(err){
+      return err;
+    }
+}
+
 module.exports = {
     all,
     search,
@@ -402,5 +435,6 @@ module.exports = {
     successTrip,
     userTripSuccess,
     payments,
-    paymentSuccess
+    paymentSuccess,
+    socketPerpostDriverRating
 }

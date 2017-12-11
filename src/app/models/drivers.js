@@ -65,6 +65,14 @@ const driversSchema = new Schema({
     isBlock : {
         type : Boolean,
         default : false
+    },
+    drating : {
+        type : Number,
+        default : 0
+    },
+    dratedBy : {
+        type : Number,
+        default : 0
     }
 },{
     timestamps: true

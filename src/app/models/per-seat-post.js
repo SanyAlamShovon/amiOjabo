@@ -68,14 +68,12 @@ const perSeatPostSchema = new Schema({
       type : Boolean,
       default : false
     },
-    commision : {
-      type : Number,
-      default : 0
+    driver : {
+      type : Object
     },
-    driverPhone : {
-      type : String,
-      default : ''
-    }
+    thisDRating : {
+      type : []
+    },
 },{
     timestamps: true
 });

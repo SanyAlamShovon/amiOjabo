@@ -143,6 +143,21 @@ async function socketDeleteDriver(server,params){
     return err
   }
 }
+
+async function socketDriverRating(server,params,currentRating){
+  try{
+     const data =  await driverModel.findOneAndUpdate({_id : params._id},{
+         $set : {
+             dratedBy: params.dratedBy + 1,
+             drating: params.drating + currentRating
+         }
+     },{upsert:true, new : true});
+     if(data === null || data === undefined)return 404;
+     else return data;
+  }catch(err){
+    return err
+  }
+}
 module.exports = {
     all,
     create,
@@ -153,5 +168,6 @@ module.exports = {
     socketBlockedDriver,
     socketUnblockedDriver,
     socketDeleteDriver,
-    blocked
+    blocked,
+    socketDriverRating
 }

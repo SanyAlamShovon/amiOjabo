@@ -1,5 +1,6 @@
 const perSeatController = require('./../controllers/per-seat-post-controller');
 const userController = require('./../controllers/users-controller');
+const driverController = require('./../controllers/drivers-controller');
 function actionEvent(io,socket,server){
     socket.on('creating-new-post',function(data){
         //console.log("socket data : ",data)
@@ -39,7 +40,7 @@ function actionEvent(io,socket,server){
 
     socket.on('cancel-user-booked-schedule',function(data){
       perSeatController.cancelSchedule(server,data).then(function(result){
-        //console.log("Cancel Schedule : ",result) 
+        //console.log("Cancel Schedule : ",result)
         socket.emit('cancel-user-booked-schedule-finished',result);
       });
     });
@@ -63,6 +64,21 @@ function actionEvent(io,socket,server){
           socket.emit('payment-success-finished',result)
       });
     });
+
+    socket.on('add-driver-rating',function(data){
+      var driver = data.driver;
+      var post = data.post;
+      var currentRating = data.currentRating;
+      var userEmail = data.userEmail;
+      driverController.socketDriverRating(server,driver,currentRating).then(function(res){
+        //console.log("update Driver rating : ",res);
+      });
+      perSeatController.socketPerpostDriverRating(server,post,currentRating,userEmail).then(function(res){
+        console.log("update Driver post : ",res);
+        socket.emit("updated-driver-rating",res);
+      });
+      //console.log("driver rating : ",data)
+    })
 }
 
 module.exports = {
