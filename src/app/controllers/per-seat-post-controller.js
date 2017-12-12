@@ -12,6 +12,18 @@ const all = {
     }
   }
 };
+
+const driversuccess = {
+  async: async function (request, reply) {
+    try {
+      const data = await perSeatPostModel.find({status:true,isBlocked : false,isSuccess : true});
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
 const getBlockedPost = {
   async: async function (request, reply) {
     try {
@@ -436,5 +448,6 @@ module.exports = {
     userTripSuccess,
     payments,
     paymentSuccess,
-    socketPerpostDriverRating
+    socketPerpostDriverRating,
+    driversuccess
 }
