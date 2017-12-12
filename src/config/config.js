@@ -19,16 +19,16 @@ module.exports = {
     uploadFolder: '/resources',
     MixFolder: './public/resources',
     MixInsideFolder: './public/resources/',
-    // mongo: {
-    //     username: 'prosen',
-    //     password: '123456',
-    //     url: 'localhost',
-    //     database: 'amiojabo'
-    // }
     mongo: {
-        username: 'amiojabo',
-        password: 'PROSENghosh28',
-        url: 'ds147974.mlab.com:47974',
+        username: 'prosen',
+        password: '23456',
+        url: 'localhost',
         database: 'amiojabo'
     }
+    // mongo: {
+    //     username: 'amiojabo',
+    //     password: 'PROSENghosh28',
+    //     url: 'ds147974.mlab.com:47974',
+    //     database: 'amiojabo'
+    // }
 };

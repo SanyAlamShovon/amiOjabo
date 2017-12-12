@@ -13,7 +13,7 @@ function actionEvent(io,socket,server){
     socket.on('user-buy-seat',function(data){
       //console.log("DATA: ",post)
       perSeatController.socketAddPassenger(server,data).then(function(result){
-          //console.log("result: ",result);
+          console.log("------------------------result: ",result);
           io.sockets.emit('user-buy-finished',result)
       });
     });
