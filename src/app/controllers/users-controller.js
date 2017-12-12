@@ -8,7 +8,7 @@ const createToken = require('./../utils/token');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await usersModel.find({status : true,isBlocked : false},{password:0,__v:0,status:0,role:0});
+      const data = await usersModel.find({status : true,isBlocked : false,role : "USER"},{password:0,__v:0,status:0,role:0});
       if(data === null || data === undefined) reply([]).code(404);
       else {
           reply(data).code(200);
