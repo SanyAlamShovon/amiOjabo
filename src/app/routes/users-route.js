@@ -13,6 +13,15 @@ const user = [
     },
     {
       method: 'GET',
+      path: '/api/v1/userCheck/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get User Information',
+        handler: userController.userCheck
+      }
+    },
+    {
+      method: 'GET',
       path: '/api/v1/user/inactive',
       config: {
         tags: ['api'],

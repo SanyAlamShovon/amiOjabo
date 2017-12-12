@@ -19,6 +19,20 @@ const all = {
   }
 };
 
+const userCheck = {
+  async: async function (request, reply) {
+    try {
+      const data = await usersModel.find({status : true,email : request.params.email}).count();
+      if(data === null || data === undefined) reply([]).code(404);
+      else {
+          reply(data).code(200);
+      }
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
+
 const employee = {
   async: async function (request, reply) {
     try {
@@ -223,5 +237,6 @@ module.exports = {
     socketGet,
     employee,
     updateUserRating,
-    socketDelete
+    socketDelete,
+    userCheck
 }
