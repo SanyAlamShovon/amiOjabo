@@ -143,7 +143,7 @@ const verifyCredentials = {
     async: async function (request, reply) {
         try {
           let password = request.payload.password;
-            const data = await usersModel.findOne({email : request.payload.email, status : true});
+            const data = await usersModel.findOne({email : request.payload.email, status : true,isBlocked:false});
             if (data === null || data === undefined) {
                 //console.log("login fail")
                 reply({'message': 'Incorrect  email or password!',status : 401}).code(200);

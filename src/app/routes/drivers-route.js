@@ -56,8 +56,7 @@ const drivers = [
       config: {
         tags: ['api'],
         description: 'Update Single Driver Information',
-        handler: driversController.update,
-        validate : driversValidation.update
+        handler: driversController.update
       }
     },
     {

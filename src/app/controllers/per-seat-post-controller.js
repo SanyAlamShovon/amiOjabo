@@ -13,6 +13,21 @@ const all = {
   }
 };
 
+const cancelbydriver = {
+  async: async function (request, reply) {
+    try {
+      const data = await perSeatPostModel.find({
+        status:false,
+        isBlocked : false,
+        "passengers.email" : request.params.email
+      });
+      if(data === null || data === undefined) reply([]).code(404);
+      else  reply(data).code(200);
+    } catch (err) {
+      reply(Boom.badRequest(err.toString())).code(400);
+    }
+  }
+};
 const driversuccess = {
   async: async function (request, reply) {
     try {
@@ -39,7 +54,12 @@ const getBlockedPost = {
 const driverPost = {
   async: async function (request, reply) {
     try {
-      const data = await perSeatPostModel.find({status:true,driverId : request.params.email,isSuccess : false});
+      const data = await perSeatPostModel.find({
+        status:true,
+        driverId : request.params.email,
+        isSuccess : false,
+        "passengers.isCanceled" : false
+      });
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -50,7 +70,7 @@ const driverPost = {
 const search = {
   async: async function (request, reply) {
     try {
-      console.log("request.params",request.params)
+      //console.log("request.params",request.params)
       const data = await perSeatPostModel.find({
           status : true,
           isBlocked : false,
@@ -119,7 +139,7 @@ const userTrip = {
         });
       }
       // console.log(tmp)
-      console.log(data)
+      //console.log(data)
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -142,7 +162,7 @@ const userCancelTrip = {
         });
       }
       // console.log(tmp)
-      console.log(data)
+      //console.log(data)
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -167,7 +187,7 @@ const userTripSuccess = {
         });
       }
       // console.log(tmp)
-      console.log("succes Trip data : ",data)
+      //console.log("succes Trip data : ",data)
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -449,5 +469,6 @@ module.exports = {
     payments,
     paymentSuccess,
     socketPerpostDriverRating,
-    driversuccess
+    driversuccess,
+    cancelbydriver
 }

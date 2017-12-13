@@ -81,9 +81,13 @@ const byEmail = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await driverModel.update({serial : request.params.serial},request.payload);
+     const data =  await driverModel.findOneAndUpdate({
+       _id : request.params.id
+     },request.payload,
+     {upsert:true, new : true}
+   );
      if(data === null || data === undefined)reply({}).code(404);
-     else reply({}).code(204)
+     else reply(data).code(200)
     }catch(err){
       reply(Boom.badRequest(err.toString())),code(400);
     }

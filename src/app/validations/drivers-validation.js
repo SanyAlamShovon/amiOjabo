@@ -39,7 +39,7 @@ const byEmail = {
 }
 const update = {
   params : {
-    serial : Joi.number().required()
+    _id : Joi.string().required()
   },
   payload : {
     serial : Joi.number().required(),
