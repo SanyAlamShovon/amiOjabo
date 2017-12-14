@@ -74,6 +74,7 @@ const search = {
       const data = await perSeatPostModel.find({
           status : true,
           isBlocked : false,
+          isSuccess : false,
           'trip.startPlace' : request.params.start,
           $or : [{
             'trip.endPlace' : request.params.end
