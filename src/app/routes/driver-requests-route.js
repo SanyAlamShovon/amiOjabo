@@ -12,6 +12,24 @@ const driverRequest = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/driverrequest/inactive',
+      config: {
+        tags: ['api'],
+        description: 'Get area Information',
+        handler: driverRequestController.inactive
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/driverrequest/onprocess',
+      config: {
+        tags: ['api'],
+        description: 'Get area Information',
+        handler: driverRequestController.onprocess
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/driverrequest',
       config: {
@@ -52,7 +70,7 @@ const driverRequest = [
       }
     }
   ];
-  
+
   module.exports = {
     driverRequest
   };

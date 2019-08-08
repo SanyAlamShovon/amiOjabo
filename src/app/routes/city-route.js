@@ -23,7 +23,7 @@ const cities = [
     },
     {
       method: 'GET',
-      path: '/api/v1/cities/{id}',
+      path: '/api/v1/cities/{serial}',
       config: {
         tags: ['api'],
         description: 'Get Single City Information',
@@ -33,7 +33,7 @@ const cities = [
     },
     {
       method: 'PUT',
-      path: '/api/v1/cities/{id}',
+      path: '/api/v1/cities/{serial}',
       config: {
         tags: ['api'],
         description: 'Update Single City Information',
@@ -43,7 +43,7 @@ const cities = [
     },
     {
       method: 'DELETE',
-      path: '/api/v1/cities/{id}',
+      path: '/api/v1/cities/{serial}',
       config: {
         tags: ['api'],
         description: 'Delete Single City Information',
@@ -53,7 +53,7 @@ const cities = [
     },
     {
       method: 'PUT',
-      path: '/api/v1/cities/{id}/{status}',
+      path: '/api/v1/cities/{serial}/{status}',
       config: {
         tags: ['api'],
         description: 'Update Status Of City Information',
@@ -62,7 +62,7 @@ const cities = [
       }
     }
   ];
-  
+
   module.exports = {
     cities
   };

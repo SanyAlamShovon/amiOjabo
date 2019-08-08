@@ -2,13 +2,13 @@ const Mongoose = require('../../config/db').Mongoose,
       Schema = Mongoose.Schema;
 
 const userSchema = new Schema({
-      _id : {
-            type : Number,
-            required : true,
-            index: { 
-                  unique: true 
-            }
-      },
+    serial : {
+        type : Number,
+        required : true,
+        index: {
+            unique: true
+        }
+    },
       name : {
             type : String,
             required : true,
@@ -17,64 +17,69 @@ const userSchema = new Schema({
       password : {
             type : String,
             required : true,
-            min : 6
+            min : 2
       },
-      phones : {
-            type : [String],
+      phone : {
+            type : String,
             required : true,
       },
       email : {
-            type : [String],
+            type : String,
             required : true,
             lowercase : true
       },
       photo : {
             type : String,
-            required : true,
             trim : true
+      },
+      role : {
+            type : String,
+            required : true,
+            trim : true,
+            default : 'USER'
       },
       addresses : {
             cityName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             areaName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             details : {
                   type : String,
-                  required : true,
                   trim : true
             }
       },
       pickupPlaces : {
             cityName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             areaName : {
                   type : String,
-                  required : true,
                   trim : true
             },
             details : {
                   type : String,
-                  required : true,
                   trim : true
             }
       },
       status : {
             type : Boolean,
-            required : true,
-            default : false
+            default : true
+      },
+      rating : {
+        type: Number,
+        default :0
+      },
+      ratedBy : {
+        type : Number,
+        default : 0
       },
       isBlocked : {
             type : Boolean,
-            required : true,
             default : false
       }
 },{

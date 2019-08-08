@@ -12,6 +12,15 @@ const drivers = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/driver/blocked',
+      config: {
+        tags: ['api'],
+        description: 'Get Drivers Information',
+        handler: driversController.blocked
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/driver',
       config: {
@@ -32,13 +41,22 @@ const drivers = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/SingleDriver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get Single Driver Information',
+        handler: driversController.byEmail,
+        validate : driversValidation.byEmail
+      }
+    },
+    {
       method: 'PUT',
       path: '/api/v1/driver/{id}',
       config: {
         tags: ['api'],
         description: 'Update Single Driver Information',
-        handler: driversController.update,
-        validate : driversValidation.update
+        handler: driversController.update
       }
     },
     {
@@ -52,7 +70,7 @@ const drivers = [
       }
     }
   ];
-  
+
   module.exports = {
     drivers
   };

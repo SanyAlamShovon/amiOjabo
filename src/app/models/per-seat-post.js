@@ -1,21 +1,21 @@
 const Mongoose = require('../../config/db').Mongoose,
 Schema = Mongoose.Schema;
+const user = require('./users');
 
 const perSeatPostSchema = new Schema({
-    _id : {
+    serial : {
         type : Number,
         required : true,
-        index: { 
-            unique: true 
+        index: {
+            unique: true
         }
     },
     driverId : {
-        type : Number,
+        type : String,
         required : true
     },
     postType : {
         type : String,
-        required : true,
         default : 'PSP'
     },
     trip : {
@@ -23,16 +23,8 @@ const perSeatPostSchema = new Schema({
             type : Date,
             required : true
         },
-        endDate : {
-            type : Date,
-            required : true
-        },
         startTime : {
-            type : Date,
-            required : true
-        },
-        endTime : {
-            type : Date,
+            type : String,
             required : true
         },
         startPlace : {
@@ -55,14 +47,33 @@ const perSeatPostSchema = new Schema({
     },
     perSeatPrice : {
         type : Number,
-        required : true,
         default : 0
+    },
+    passengers : {
+        type : []
     },
     status : {
         type : Boolean,
-        required : true,
-        default : false
-    }
+        default : true
+    },
+    isSuccess : {
+      type: Boolean,
+      default : false
+    },
+    isBlocked : {
+      type : Boolean,
+      default : false
+    },
+    isPaid : {
+      type : Boolean,
+      default : false
+    },
+    driver : {
+      type : Object
+    },
+    thisDRating : {
+      type : []
+    },
 },{
     timestamps: true
 });

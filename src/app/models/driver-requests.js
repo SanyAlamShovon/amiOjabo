@@ -2,11 +2,11 @@ const Mongoose = require('../../config/db').Mongoose,
 Schema = Mongoose.Schema;
 
 const driverRequestsSchema = new Schema({
-    _id : {
+    serial : {
         type : Number,
         required : true,
-        index: { 
-            unique: true 
+        index: {
+            unique: true
         }
     },
     name : {
@@ -14,61 +14,53 @@ const driverRequestsSchema = new Schema({
         required : true,
         trim : true
     },
-    permanentAddress : {
-        cityName : {
-            type : String,
-            required : true
-        },
-        areaName : {
-            type : String,
-            required : true
-        },
-        details : {
-            type : String
-        }
+    email : {
+      type : String,
+      trim : true
     },
-    presentAddress : {
-        cityName : {
-            type : String,
-            required : true
-        },
-        areaName : {
-            type : String,
-            required : true
-        },
-        details : {
-            type : String
-        }
+    cityName : {
+        type : String,
+        required : true
     },
-    phones : {
-        type : [String],
+    gender : {
+        type : String,
+        required : true
+    },
+    phone : {
+        type : String,
         required : true
     },
     hasOwnVehicle : {
-        type : Boolean,
-        required : true,
-        default : false
+        type : String,
+        default : "NO"
+    },
+    vechileType : {
+        type : String
     },
     hasLicenses : {
-        type : Boolean,
-        required : true,
-        default : false
+        type : String,
+        default : "NO"
     },
     status : {
         type : Boolean,
-        required : true,
         default : false
     },
     isCalled : {
         type : Boolean,
-        required : true,
         default : false
     },
     isInterviewed : {
         type : Boolean,
-        required : true,
         default : false
-     }
+     },
+    isChoosed : {
+        type : Boolean,
+        default : false
+    },
+    onProcess : {
+        type : Boolean,
+        default : false
+    }
 },{
     timestamps: true
 });

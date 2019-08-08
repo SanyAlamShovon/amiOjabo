@@ -1,7 +1,7 @@
 const Mongoose = require('../../config/db').Mongoose,
       Schema = Mongoose.Schema;
 
-const citySchema = new Schema({
+const countersSchema = new Schema({
     serial : {
         type : Number,
         required : true,
@@ -9,17 +9,17 @@ const citySchema = new Schema({
             unique: true
         }
     },
-    cityName : {
+    name : {
         type : String,
         required : true,
         trim: true
     },
-    status : {
-        type : Boolean,
-        default : true
+    seq : {
+        type : Number,
+        default : 0
     }
 },{
     timestamps: true
 });
 
-module.exports = Mongoose.model('Cites',citySchema,'Cites');
+module.exports = Mongoose.model('Counters',countersSchema,'Counters');

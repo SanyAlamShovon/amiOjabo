@@ -17,6 +17,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const fullCarPost = new fullCarPostModel(request.payload);
+      fullCarPost.serial = await fullCarPostModel.find({}).count() + 1;
       const data =  await fullCarPost.save();
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(201);
@@ -29,7 +30,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await fullCarPostModel.find({_id : request.params._id});
+      const data =  await fullCarPostModel.find({serial : request.params.serial});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -41,7 +42,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await fullCarPostModel.update({_id : request.params._id},request.payload);
+     const data =  await fullCarPostModel.update({serial : request.params.serial},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -53,7 +54,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await fullCarPostModel.remove({_id : request.params._id});
+      const data = await fullCarPostModel.remove({serial : request.params.serial});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){

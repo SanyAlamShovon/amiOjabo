@@ -5,7 +5,7 @@ const ucFirst = require('uppercase-first');
 const all = {
   async: async function (request, reply) {
     try {
-      const data = await cityModel.find({status : true});
+      const data = await cityModel.find({status : true},{__v:0,_id:0,status:0,updatedAt:0,createdAt:0});
       if(data === null || data === undefined) reply([]).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -17,6 +17,7 @@ const create = {
   async: async function (request, reply) {
     try {
       const city = new cityModel(request.payload);
+      city.serial = await cityModel.find({}).count() + 1;
       city.cityName = ucFirst(city.cityName);
       const data =  await city.save();
       if(data === null || data === undefined) reply({}).code(404);
@@ -30,7 +31,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await cityModel.find({_id : request.params._id,status : true});
+      const data =  await cityModel.find({serial : request.params.serial,status : true});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -42,9 +43,20 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await cityModel.update({_id : request.params._id},request.payload);
+     const data =  await cityModel.findOneAndUpdate(
+       {
+         serial : request.params.serial
+       },
+       request.payload,
+       {
+         upsert:true, new : true,
+         select:{
+           __v:0,status:0,
+         }
+       }
+     );
      if(data === null || data === undefined)reply({}).code(404);
-     else reply({}).code(204)
+     else reply(data).code(200)
     }catch(err){
       reply(Boom.badRequest(err.toString())),code(400);
     }
@@ -54,7 +66,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await cityModel.remove({_id : request.params._id});
+      const data = await cityModel.remove({serial : request.params.serial});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){
@@ -67,11 +79,11 @@ const activeInactive = {
   async : async function(request,reply){
     try{
       const data = await cityModel.findByIdAndUpdate({
-        _id : request.params._id
+        serial : request.params.serial
       },{
         $set : {
           status : request.params.status
-        } 
+        }
       });
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
@@ -80,11 +92,22 @@ const activeInactive = {
     }
   }
 }
+
+async function socketDelete(server,serial,params){
+  try{
+    const data = await cityModel.findOneAndUpdate({serial : serial},params.city,{new:true,select:{__v:0}});
+    if(data == null || data === undefined)return 404;
+    else return data;
+  }catch(err){
+    return err;
+  }
+}
 module.exports = {
     all,
     create,
     byId,
     update,
     destroy,
-    activeInactive
+    activeInactive,
+    socketDelete
 }

@@ -28,7 +28,7 @@ const create = {
 const byId = {
   async: async function (request, reply) {
     try {
-      const data =  await reviewModel.find({_id : request.params._id});
+      const data =  await reviewModel.find({serial : request.params.serial});
       if(data === null || data === undefined) reply({}).code(404);
       else  reply(data).code(200);
     } catch (err) {
@@ -40,7 +40,7 @@ const byId = {
 const update = {
   async : async function(request,reply){
     try{
-     const data =  await reviewModel.update({_id : request.params._id},request.payload);
+     const data =  await reviewModel.update({serial : request.params.serial},request.payload);
      if(data === null || data === undefined)reply({}).code(404);
      else reply({}).code(204)
     }catch(err){
@@ -52,7 +52,7 @@ const update = {
 const destroy = {
   async : async function(request,reply){
     try{
-      const data = await reviewModel.remove({_id : request.params._id});
+      const data = await reviewModel.remove({serial : request.params.serial});
       if(data == null || data === undefined)reply({}).code(404);
       else reply({}).code(200);
     }catch(err){

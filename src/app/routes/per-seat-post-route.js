@@ -12,6 +12,96 @@ const perSeatPost = [
       }
     },
     {
+      method: 'GET',
+      path: '/api/v1/perseatpost/driversuccess/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.driversuccess
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/perseatpost/blocked',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.getBlockedPost
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/perseatpost/driver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.driverPost
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/perseatpost/cancelbydriver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.cancelbydriver
+      }
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/canceledScheduleofdriver/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get Cancel Schedule',
+        handler: perSeatPostController.cancelScheduleOfDriver
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/search/{start}/{end}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.search
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/usertrip/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userTrip
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/usertripcancel/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userCancelTrip
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/payments',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.payments
+      }
+    },
+    {
+      method : 'GET',
+      path : '/api/v1/usertripsuccess/{email}',
+      config: {
+        tags: ['api'],
+        description: 'Get per Seat Post Information',
+        handler: perSeatPostController.userTripSuccess
+      }
+    },
+    {
       method: 'POST',
       path: '/api/v1/perseatpost',
       config: {
@@ -23,7 +113,7 @@ const perSeatPost = [
     },
     {
       method: 'GET',
-      path: '/api/v1/perseatpost/{id}',
+      path: '/api/v1/perseatpost/{_id}',
       config: {
         tags: ['api'],
         description: 'Get Single per Seat Post Information',
@@ -52,7 +142,7 @@ const perSeatPost = [
       }
     }
   ];
-  
+
   module.exports = {
     perSeatPost
   };

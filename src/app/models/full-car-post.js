@@ -2,11 +2,11 @@ const Mongoose = require('../../config/db').Mongoose,
 Schema = Mongoose.Schema;
 
 const fullCarPostSchema = new Schema({
-    _id : {
+    serial : {
         type : Number,
         required : true,
-        index: { 
-            unique: true 
+        index: {
+            unique: true
         }
     },
     driverId : {
@@ -50,13 +50,20 @@ const fullCarPostSchema = new Schema({
     },
     totalPrice : {
         type : Number,
-        required : true,
         default : 0
     },
+    isSuccess : {
+      type : Boolean,
+      default : false;
+    }
     status : {
         type : Boolean,
-        required : true,
         default : false
+    },
+    isBlocked : {
+      type : Boolean,
+      required : true,
+      default : false
     }
 },{
     timestamps: true

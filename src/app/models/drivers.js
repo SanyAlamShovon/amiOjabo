@@ -2,11 +2,11 @@ const Mongoose = require('../../config/db').Mongoose,
 Schema = Mongoose.Schema;
 
 const driversSchema = new Schema({
-    _id : {
+    serial : {
         type : Number,
         required : true,
-        index: { 
-            unique: true 
+        index: {
+            unique: true
         }
     },
     name : {
@@ -14,9 +14,18 @@ const driversSchema = new Schema({
         required : true,
         trim : true
     },
-    phones : {
-        type: [String],
+    phone : {
+        type: String,
         required : true
+    },
+    email : {
+        type: String,
+        required : true
+    },
+    gender : {
+      type : String,
+      trim: true,
+      required : true
     },
     licenceNumber : {
         type : String,
@@ -24,42 +33,24 @@ const driversSchema = new Schema({
         trim : true
     },
     vehicles : {
-        vehicleId : {
-            type : Number,
-            required : true
-        },
         vehicleName : {
             type :  String,
             required : true,
             trim : true
-        },
-        vehicleModel : {
-            type : String,
-            required : true
         },
         vehicleCapacity : {
             type : Number,
             required : true
         },
         vehiclePhotos : {
-            type : [String],
-            required : true
-        },
-        vehicleColor : {
-            type : String,
-            required : true
+            type : [String]
         },
         fual : {
             type : String,
-            required : true,
             default : 'patrol'
         }
     },
     commision : {
-        type : Number,
-        required : true
-    },
-    minCharge : {
         type : Number,
         required : true
     },
@@ -69,12 +60,19 @@ const driversSchema = new Schema({
     },
     status : {
         type : Boolean,
-        required : true,
-        default : false
+        default : true
     },
     isBlock : {
         type : Boolean,
-        required : true
+        default : false
+    },
+    drating : {
+        type : Number,
+        default : 0
+    },
+    dratedBy : {
+        type : Number,
+        default : 0
     }
 },{
     timestamps: true
